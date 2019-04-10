@@ -13,10 +13,6 @@ namespace SimpleTaskListSPA.Data
         [Required(ErrorMessage = "Введите название")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Название должно быть от 3 до 60 символов")]
         public string Name { get; set; } = string.Empty;
-
-        public int OverdueTasksCount { get; set; }
-        public int AllTasksCount { get; set; }
-
         public IEnumerable<TaskItem> TaskItems { get; set; }
     }
 }

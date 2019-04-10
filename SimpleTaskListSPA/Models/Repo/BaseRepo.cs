@@ -9,7 +9,7 @@ namespace SimpleTaskListSPA.Models.Repo
 {
     //базовый класс хранилища
     //используется для взаимодействия с базой данных с помощью CRUD операций
-    public class BaseRepo<T> : IDisposable where T : EntityBase
+    public class BaseRepo<T> : IBaseRepo<T>, IDisposable where T : EntityBase
     {
         protected readonly DataContext context;
 
@@ -20,22 +20,7 @@ namespace SimpleTaskListSPA.Models.Repo
 
         public void Dispose() => Context?.Dispose();
 
-        //получить один объект
-        protected async Task<T> GetOneAsync(long id, string propName) => await Context.Set<T>()
-            .Include(propName)
-            .SingleOrDefaultAsync(e => e.Id == id);
-
-        //получить все объекты
-        public async Task<IQueryable<T>> GetAllAsync(string propName = null)
-        {
-            IQueryable<T> entities = propName == null
-                ? await Task.Run(() => GetEntities())
-                : await Task.Run(() => GetEntities().Include(propName));
-
-            return entities;
-        }
-
-        protected IQueryable<T> GetEntities()
+        public IQueryable<T> GetEntities()
         {
             if (Context.Database.GetAppliedMigrations().Count() > 0)
             {
@@ -46,7 +31,7 @@ namespace SimpleTaskListSPA.Models.Repo
         }
 
         //создать запись в бд
-        protected async Task<T> AddAsync(T entity)
+        public async Task<T> AddAsync(T entity)
         {
             await Context.AddAsync(entity);
             await Context.SaveChangesAsync();
@@ -55,7 +40,7 @@ namespace SimpleTaskListSPA.Models.Repo
         }
 
         //обновить запись в бд
-        protected async Task<bool> UpdateAsync(T entity)
+        public async Task<bool> UpdateAsync(T entity)
         {
             long id = entity.Id;
             bool isExist = EntityExist(id);
@@ -71,7 +56,7 @@ namespace SimpleTaskListSPA.Models.Repo
         }
 
         //удалить запись в бд по id
-        protected async Task<bool> DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(T entity)
         {
             long id = entity.Id;
             bool isExist = EntityExist(id);
