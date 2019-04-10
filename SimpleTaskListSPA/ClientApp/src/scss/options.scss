@@ -1,0 +1,16 @@
+﻿#options-page {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #cbad94;
+
+    #option-scroll {
+        overflow-y: auto;
+        height: 100vh;
+        width: 100%;
+        padding-right: 0.8rem;
+        padding-left: 0.8rem;
+    }
+}

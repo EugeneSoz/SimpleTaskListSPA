@@ -1,0 +1,163 @@
+﻿@import 'customVars.scss';
+ 
+#sidebar {
+    background-color: $sidebar-bg-color;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#lists {
+    width: $lists-width;
+    background-color: $lists-bg-color;
+}
+
+.lists-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    @extend %marging-padding-reset;
+}
+
+#search-toolbar {
+    background-color: $search-toolbar-bg-color;
+    height: $search-toolbar-height;
+    display: flex;
+    @extend %marging-padding-reset;
+
+    .search-input-wrapper {
+        flex: 0;
+        width: $lists-width - 2rem;
+    }
+
+    .search-input[type="text"] {
+        font-size: 1.125rem;
+        color: #fff;
+        min-width: $lists-width - 2rem;
+    }
+
+    .search-icon-wrapper {
+        width: 2rem;
+        height: $search-toolbar-height;
+        padding: 0.5rem 0.7rem 0.8rem 0.2rem;
+
+        .search-icon {
+            cursor: pointer;
+            @extend %marging-padding-reset;
+        }
+    }
+}
+
+#lists-scroll {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    @extend %marging-padding-reset;
+
+    ul {
+        list-style-type: none;
+        @extend %marging-padding-reset;
+    }
+
+    .sidebar-item {
+        height: 2.4rem;
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            height: 2.4rem;
+            box-sizing: border-box;
+            color: $sidebar-item-a-color;
+            display: flex;
+            -moz-box-align: center;
+            -webkit-box-align: center;
+            align-items: center;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+
+            .title {
+                font-size: 1rem;
+                font-weight: 400;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: $sidebar-item-a-title-color;
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                flex: 1;
+                padding-left: 0.8rem;
+                padding-right: 0.4rem;
+            }
+
+            .overdue-count {
+                color: $sidebar-item-a-overdue-count-color;
+                background-color: $sidebar-item-a-overdue-count-b-color;
+                display: block;
+                font-size: $categories-count-font-size;
+                font-weight: bold;
+                padding-left: $categories-count-padding-left-right;
+                padding-right: $categories-count-padding-left-right;
+                border-radius: 0.8rem;
+            }
+
+            .count {
+                color: $sidebar-item-a-count-color;
+                font-size: $categories-count-font-size;
+                padding-left: $categories-count-padding-left-right;
+                padding-right: $categories-count-padding-left-right;
+            }
+
+            &.active {
+                background-color: #c6e0f6;
+                color: #262626;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background-color: #e0eefa;
+                color: #262626;
+                text-decoration: none;
+            }
+        }
+
+        .list-icon {
+            height: 1.25rem;
+            width: 1.25rem;
+            padding-left: 0.2rem;
+            padding-right: 0.2rem;
+            text-align: center;
+        }
+    }
+}
+
+.sidebar-actions {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    background-color: #f7f7f7;
+    padding: 0;
+    margin-top: auto;
+
+    .sidebar-actions-add-list {
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        height: 2.6rem;
+        -moz-box-align: center;
+        -webkit-box-align: center;
+        align-items: center;
+        font-size: 1rem;
+        @extend %marging-padding-reset;
+    }
+
+    .sidebar-actions-icon {
+        height: 1.25rem;
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+        color: #328ad6;
+    }
+
+    .sidebar-actions-label {
+        flex: 1;
+        color: #328ad6;
+    }
+}
+

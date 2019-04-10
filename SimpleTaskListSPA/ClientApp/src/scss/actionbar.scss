@@ -1,0 +1,45 @@
+﻿#details {
+    transition: 100ms width ease;
+    width: 18rem;
+    background-color: #f7f7f7;
+    @extend %marging-padding-reset;
+
+    .inner {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .top {
+            @extend %marging-padding-reset;
+            text-decoration: none;
+            display: flex;
+            border-bottom: 0.2rem solid rgba(0,0,0,0.1);
+        }
+
+        .details-checkbox {
+            margin: 0.5rem;
+        }
+
+        .details-star {
+            margin: 0.5rem;
+        }
+
+        .title-container {
+            margin: 0.5rem;
+            width: 14rem;
+        }
+
+        .bottom {
+            padding: 0.5rem;
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            border-top: 0.2rem solid rgba(0,0,0,0.1);
+        }
+    }
+}
