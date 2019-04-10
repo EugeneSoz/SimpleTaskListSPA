@@ -1,10 +1,14 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleTaskListSPA.Data;
+using SimpleTaskListSPA.Models.Repo;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SimpleTaskListSPA
 {
@@ -22,10 +26,22 @@ namespace SimpleTaskListSPA
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Info { Title = "SimpleTaskList API", Version = "v1" }));
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+
+            services.AddTransient<ICategoryRepo, CategoryRepo>();
+            services.AddTransient<ITaskItemRepo, TaskItemRepo>();
+            //services.AddTransient<MigrationsManager>();
+
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]);
             });
         }
 
@@ -53,6 +69,11 @@ namespace SimpleTaskListSPA
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "SimpleTaskList API v1"));
 
             app.UseSpa(spa =>
             {
