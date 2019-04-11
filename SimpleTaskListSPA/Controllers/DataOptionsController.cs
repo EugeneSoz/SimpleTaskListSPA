@@ -12,7 +12,7 @@ using SimpleTaskListSPA.Models.Repo;
 
 namespace SimpleTaskListSPA.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/options")]
     public class DataOptionsController : ControllerBase
     {
         private readonly ITaskItemRepo _taskRepo;

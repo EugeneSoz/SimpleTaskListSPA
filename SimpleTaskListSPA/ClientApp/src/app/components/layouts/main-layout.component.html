@@ -1,3 +1,21 @@
-<p>
-  main-layout works!
-</p>
+<div class="container-fluid px-0">
+    <div class="row no-gutters">
+        <div id="sidebar" class="col-lg-auto">
+            <!--<CategoryFilter />-->
+        </div>
+        <div id="tasks" class="col-lg">
+            <app-toolbar></app-toolbar>
+
+            <div class="tasks-scroll">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+        <div class="col-lg-auto">
+            <!--<TaskForm />-->
+        </div>
+    </div>
+
+    <!--<CategoryForm />
+    <DeleteMessage />-->
+</div>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbars/toolbar.component';
 import { ToolbarTitleComponent } from './components/toolbars/toolbar-title.component';
@@ -24,6 +24,13 @@ import { TaskCreationComponent } from './components/main/task-creation.component
 import { OptionsLayoutComponent } from './components/layouts/options-layout.component';
 import { DataOptionsComponent } from './components/options/data-options.component';
 import { TaskFormComponent } from './components/actionbar/task-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TaskService } from './services/taskItem.service';
+
+import localeRu from "@angular/common/locales/ru";
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeRu, "ru");
 
 @NgModule({
     declarations: [
@@ -52,9 +59,10 @@ import { TaskFormComponent } from './components/actionbar/task-form.component';
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpClientModule
     ],
-    providers: [],
+    providers: [TaskService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,432 @@
+[
+  {
+    "Name": "Входящие",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Сварить картошку",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": "2019-01-10T00:00:00",
+        "IsPlanningDateUsed": false,
+        "IsCompleted": true,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Почитать Троелсена",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-08T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Прочитать про паттерны",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-09T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": true,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Протереть пыль",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-09T00:00:00",
+        "EffectiveDate": "2018-12-08T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Слетать в Крым",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-09T00:00:00",
+        "EffectiveDate": "2019-01-10T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Посмотреть фильм",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-09T00:00:00",
+        "EffectiveDate": "2019-01-16T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Выключить компьютер",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-09T00:00:00",
+        "EffectiveDate": "2019-01-17T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Razor Components",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-01-30T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Дом",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Сделать уборку",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-08T00:00:00",
+        "EffectiveDate": "2019-01-30T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Пропылесосить",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-02-16T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Сделать уборку",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-02-09T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Продукты",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Купить ряженку",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Купить йогурт",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": "2018-12-13T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Отдых",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Посмотреть YouTube",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-02-02T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Слетать в Крым",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": "2019-07-15T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": true,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Лечь спать сегодня",
+        "CreationDate": "2019-01-10T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": "2019-01-30T00:00:00",
+        "IsPlanningDateUsed": false,
+        "IsCompleted": true,
+        "IsOverdue": false,
+        "IsImportant": true,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Компьютер",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "saas",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-01-30T00:00:00",
+        "EffectiveDate": "2019-01-30T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Посмотреть новости",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Поиграть",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Поработать на проектом в субботу",
+        "CreationDate": "2018-12-08T00:00:00",
+        "PlanningDate": "2018-12-08T00:00:00",
+        "EffectiveDate": "2018-12-08T00:00:00",
+        "IsPlanningDateUsed": true,
+        "IsCompleted": true,
+        "IsOverdue": true,
+        "IsImportant": true,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Телевизор",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Посмотреть новости",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Посмотреть сериал",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Кошка",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Купить пакетиков",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": "2018-12-13T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": true,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Купить расчёстку",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": null,
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": false,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      },
+      {
+        "Name": "Помазать шею",
+        "CreationDate": "2018-12-12T00:00:00",
+        "PlanningDate": "2018-12-12T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Работа",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Начать поиск",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-02-01T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": true,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Автобус",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [
+      {
+        "Name": "Оплатить проездной",
+        "CreationDate": "2019-01-29T00:00:00",
+        "PlanningDate": "2019-02-17T00:00:00",
+        "EffectiveDate": null,
+        "IsPlanningDateUsed": true,
+        "IsCompleted": false,
+        "IsOverdue": false,
+        "IsImportant": false,
+        "Category": null,
+        "CategoryId": 0,
+        "Id": 0
+      }
+    ],
+    "Id": 0
+  },
+  {
+    "Name": "Родители",
+    "OverdueTasksCount": 0,
+    "AllTasksCount": 0,
+    "TaskItems": [],
+    "Id": 0
+  }
+]

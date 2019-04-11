@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable({ providedIn: 'root' })
 export class Urls {
     private baseoptionsUrl: string = `/api/options`;
-    dataOptions: string = `${this.baseoptionsUrl}/dbServices`;
+    dataOptions: string = `${this.baseoptionsUrl}/services`;
     seed: string = `${this.baseoptionsUrl}/seed`;
 
     private baseCategoryUrl: string = `/api/category`;
@@ -14,27 +14,9 @@ export class Urls {
     category_update: string = `${this.baseCategoryUrl}/update`;
     category_delete: string = `${this.baseCategoryUrl}/delete`;
 
-    private baseBookUrl: string = `/api/book`;
-    books: string = `${this.baseBookUrl}/books`;
-    book: string = `${this.baseBookUrl}/book`;
-    book_create: string = `${this.baseBookUrl}/create`;
-    book_update: string = `${this.baseBookUrl}/update`;
-    book_delete: string = `${this.baseBookUrl}/delete`;
-
-    private basePublisherUrl: string = `/api/publisher`;
-    publishers: string = `${this.basePublisherUrl}/publishers`;
-    publisher: string = `${this.basePublisherUrl}/publisher`;
-    publisher_create: string = `${this.basePublisherUrl}/create`;
-    publisher_update: string = `${this.basePublisherUrl}/update`;
-    publisher_delete: string = `${this.basePublisherUrl}/delete`;
-
-    private baseSessionUrl: string = `/api/session`;
-    session: string = `${this.baseSessionUrl}/cart`;
-
-    private baseOrderUrl: string = `/api/orders`;
-    orders: string = `${this.baseOrderUrl}`;
-
-    private baseAccountUrl: string = `/api/acount`;
-    login: string = `${this.baseAccountUrl}/login`;
-    logout: string = `${this.baseAccountUrl}/logout`;
+    private baseTaskUrl: string = `/api/taskitem`;
+    tasks: string = `${this.baseTaskUrl}/tasks`;
+    task_create: string = `${this.baseTaskUrl}/create`;
+    task_update: string = `${this.baseTaskUrl}/update`;
+    task_delete: string = `${this.baseTaskUrl}/delete`;
 }

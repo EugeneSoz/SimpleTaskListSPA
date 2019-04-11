@@ -53,6 +53,8 @@ namespace SimpleTaskListSPA.Models.Repo
 
             List<TaskItem> tasks = await processedTasks.ToListAsync();
 
+            tasks.ForEach(t => t.Category.TaskItems = null);
+
             return new TaskItemResponse
             {
                 Tasks = new Dictionary<string, IEnumerable<TaskItem>>

@@ -1,3 +1,17 @@
-<p>
-  inbox-listbox works!
-</p>
+<!-- <TaskCreation /> -->
+
+<div *ngIf="activeTasks != null" class="px-3">
+    <ng-container *ngFor="let task of activeTasks">
+        <app-taskbox [taskItem]="task"></app-taskbox>
+    </ng-container>
+</div>
+<h6 id="completed-tasks-title">
+    <a (click)="onShowOrHideCompletedTasks()">
+        {{showCompletedTitle}}
+    </a>
+</h6>
+<div *ngIf="activeTasks != null && isCompletedShown" class="px-3">
+    <ng-container *ngFor="let task of completedTasks">
+        <app-taskbox [taskItem]="task"></app-taskbox>
+    </ng-container>
+</div>

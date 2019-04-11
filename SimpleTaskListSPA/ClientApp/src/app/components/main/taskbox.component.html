@@ -1,3 +1,24 @@
-<p>
-  taskbox works!
-</p>
+<div *ngIf="taskItem != null" [class]="taskCssClass">
+    <div class="custom-control custom-checkbox col-md taskCheck" (click)="onSelectOrDeselectTask()">
+        <input type="checkbox" class="custom-control-input" [checked]="taskItem.isCompleted" 
+        id="{{taskItem.id}}"
+        (change)="onChangeCompletionTask()" />
+        <label class="custom-control-label font-weight-bold" for="{{taskItem.id}}">
+            {{taskItem.name}}
+        </label>
+    </div>
+    <div class="col-md-auto" (click)="onSelectOrDeselectTask()">
+        <span id="date">{{taskItem.planningDate | date:"dd.MM.yyyy":"ru"}}</span>
+    </div>
+    <div [class]="'col-md-auto ' + starColor" (click)="onSwitchTaskImportance()">
+        <a><i class="fas fa-star fa-lg"></i></a>
+    </div>
+
+    <div class="col-md-auto">
+        <!-- @if (AreActionsAvailable)
+        {
+        <TaskActions TaskItem="@TaskItem" />
+        } -->
+    </div>
+
+</div>

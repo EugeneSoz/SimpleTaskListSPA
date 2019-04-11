@@ -19,7 +19,7 @@ namespace SimpleTaskListSPA.Controllers
             _repo = repo;
         }
 
-        [HttpPost("create")]
+        [HttpPost("tasks")]
         public async Task<TaskItemResponse> ReceiveTasksAsync([FromBody] QueryOptions options)
         {
             TaskItemResponse tasks =  await _repo.ReceiveTasksAsync(options);

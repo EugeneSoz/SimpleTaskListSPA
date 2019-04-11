@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleTaskListSPA.Data;
+using SimpleTaskListSPA.Models.Database;
 using SimpleTaskListSPA.Models.Repo;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -37,7 +38,7 @@ namespace SimpleTaskListSPA
 
             services.AddTransient<ICategoryRepo, CategoryRepo>();
             services.AddTransient<ITaskItemRepo, TaskItemRepo>();
-            //services.AddTransient<MigrationsManager>();
+            services.AddTransient<MigrationsManager>();
 
             services.AddDbContext<DataContext>(options =>
             {
@@ -84,7 +85,8 @@ namespace SimpleTaskListSPA
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    //spa.UseAngularCliServer(npmScript: "start");
                 }
             });
         }
