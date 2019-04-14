@@ -5,6 +5,7 @@ import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { TaskItemResponse } from '../models/dataDTO/taskItemResponse';
 import { HttpMethod } from '../helpers/httpMethod';
 import { TaskItem } from '../models/dataDTO/taskItem';
+import { DropdownList } from '../viewmodels/dropdownlist';
 
 @Injectable()
 export class TaskService {
@@ -14,6 +15,8 @@ export class TaskService {
 
         this.queryOptions = new QueryOptions();
         this.queryOptions.resetToDefault();
+        this.dropdownlist = new DropdownList();
+        this.dropdownlist.createSortingList("#");
     }
 
     private _selectedTask: TaskItem = new TaskItem();
@@ -35,6 +38,9 @@ export class TaskService {
     taskItems: TaskItemResponse = null;
     activeTasks: Array<TaskItem> = null;
     completedTasks: Array<TaskItem> = null;
+    isFormShown: boolean = true;
+    dropdownlist: DropdownList = null;
+    isFormInEditMode: boolean = false;
 
     recieveTasks(): void {
         this._rest.sendRequest<TaskItemResponse, QueryOptions>(HttpMethod.post,
@@ -51,5 +57,14 @@ export class TaskService {
 
     updateTask(taskItem: TaskItem): void {
         
+    }
+
+    sortBy(sortPropertyName: string): void {
+        if (sortPropertyName == "desc") {
+            this.queryOptions.descendingOrder = !this.queryOptions.descendingOrder;
+        }
+        else {
+            this.queryOptions.sortPropertyName = sortPropertyName;
+        }
     }
 }

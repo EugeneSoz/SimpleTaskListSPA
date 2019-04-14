@@ -5,11 +5,11 @@
 
     <div class="collapse navbar-collapse row" id="navbarSupportedContent">
         <div class="col-lg">
-            <span class="text-white">Eugene</span>
-            <span class="text-white ml-2">Выйти</span>
+            <app-toolbar-title></app-toolbar-title>
         </div>
-        <div *ngIf="isButtonsVisible" class="col-lg-auto d-flex flex-row">
-            <button class="btn btn-primary" [routerLink]="[link, 'create']">Новая</button>
+        <div class="col-lg-auto d-flex flex-row">
+            <app-actions></app-actions>
+            <app-sorting-dropdown></app-sorting-dropdown>
         </div>
     </div>
 </nav>

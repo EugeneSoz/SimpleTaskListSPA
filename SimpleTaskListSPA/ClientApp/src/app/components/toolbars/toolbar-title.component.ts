@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
     selector: 'app-toolbar-title',
     templateUrl: './toolbar-title.component.html',
 })
-export class ToolbarTitleComponent implements OnInit {
+export class ToolbarTitleComponent {
 
-    constructor() { }
+    constructor(
+        private _categoryService: CategoryService) { }
 
-    ngOnInit() {
+    get selectedCategoryTitle(): string {
+        return this._categoryService.selectedCategoryTitle == null
+            || this._categoryService.selectedCategoryTitle == ""
+            ? "Категория"
+            : this._categoryService.selectedCategoryTitle;
     }
-
 }

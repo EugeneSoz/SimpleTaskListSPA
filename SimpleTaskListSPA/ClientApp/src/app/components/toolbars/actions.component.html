@@ -1,3 +1,7 @@
-<p>
-  actions works!
-</p>
+<li *ngIf="isOpenFormTitleVisible" class="nav-item">
+    <a class="nav-link active" href="#">{{openFormTitle}}</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link active" href="#" routerLink="/options">Опции</a>
+</li>

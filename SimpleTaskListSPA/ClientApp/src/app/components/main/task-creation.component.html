@@ -1,3 +1,15 @@
-<p>
-  task-creation works!
-</p>
+<div class="add-task">
+    <div class="add-task-meta">
+        <a class="add-task-meta-star" [style.color]="starColour">
+            <i class="fas fa-star"></i>
+        </a>
+        <a class="add-task-meta-date" [style.color]="calendarColour">
+            <i class="fas fa-calendar-alt"></i>
+        </a>
+    </div>
+    <a class="plus-wrapper" style="color: #fff;">
+        <i class="fas fa-plus"></i>
+    </a>
+    <input class="add-task-input chromeless" type="text" />
+    <input id="add-task-date" class="chromeless" type="text" disabled />
+</div>
