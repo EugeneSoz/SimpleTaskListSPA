@@ -1,3 +1,36 @@
-<p>
-  category-filter works!
-</p>
+<div id="lists">
+    <div class="lists-inner">
+        <app-search-toolbar></app-search-toolbar>
+        <div id="lists-scroll">
+            <ul *ngIf="categories != null">
+                <li *ngFor="let displayed of categories" class="sidebar-item">
+                
+                    <a [class]="getLinkElementCssClass(displayed.category)" 
+                        (click)="onFilterByCategory(displayed.category)">
+                        <span class="list-icon" [style.color]="displayed.iconColour"
+                        [innerHTML]="displayed.iconSymbol">                            
+                        </span>
+                        <span class="title">{{displayed.category.name}}</span>
+                        <span *ngIf="displayed.category.overdueTasksCount > 0" class="overdue-count">
+                            {{displayed.category.overdueTasksCount}}
+                        </span>
+                        <span *ngIf="displayed.category.allTasksCount > 0" class="count">
+                            {{displayed.category.allTasksCount}}</span>
+
+                        <span *ngIf="onShowEditButton(displayed.category)" class="list-options text-info" (click)="onShowEditForm()">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-actions">
+            <a class="sidebar-actions-add-list">
+                <span class="sidebar-actions-icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="sidebar-actions-label">Создать список</span>
+            </a>
+        </div>
+    </div>
+</div>

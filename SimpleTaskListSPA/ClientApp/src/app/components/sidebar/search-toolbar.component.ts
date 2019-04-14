@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
-  selector: 'app-search-toolbar',
-  templateUrl: './search-toolbar.component.html',
-  styles: []
+    selector: 'app-search-toolbar',
+    templateUrl: './search-toolbar.component.html',
 })
-export class SearchToolbarComponent implements OnInit {
+export class SearchToolbarComponent {
 
-  constructor() { }
+    constructor(
+        private _categoryService: CategoryService) { }
 
-  ngOnInit() {
-  }
+    searchTerm: string = "";
 
+    get isCancelButtonVisible(): boolean {
+        return this.searchTerm == "" ? false : true;
+    }
 }

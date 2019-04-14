@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { BaseListBoxComponent } from '../../../viewmodels/baseListbox';
+import { TaskDict } from '../../../models/dataDTO/taskItemResponse';
+import { TaskService } from '../../../services/taskItem.service';
 
 @Component({
-  selector: 'app-today-listbox',
-  templateUrl: './today-listbox.component.html',
-  styles: []
+    templateUrl: './today-listbox.component.html',
 })
-export class TodayListboxComponent implements OnInit {
+export class TodayListboxComponent extends BaseListBoxComponent {
 
-  constructor() { }
+    constructor(
+        taskService: TaskService) {
+        super(taskService);
+    }
 
-  ngOnInit() {
-  }
+    get tasks(): TaskDict {
+        return this._taskService.taskItems.tasks;
+    }
 
+    get keys(): Array<string> {
+        return Object.keys(this._taskService.taskItems.tasks);
+    }
 }

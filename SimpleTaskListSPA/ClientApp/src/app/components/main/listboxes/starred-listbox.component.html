@@ -1,3 +1,18 @@
-<p>
-  starred-listbox works!
-</p>
+<ng-container *ngIf="tasks != null && keys.length > 0">
+    <ng-container *ngFor="let key of keys">
+        <ng-container *ngIf="tasks[key].length > 0">
+            <h6 id="completed-tasks-title">
+                <a>
+                    {{key}}
+                </a>
+            </h6>
+
+            <div class="px-3">
+                <ng-container *ngFor="let task of tasks[key]">
+                    <app-taskbox [taskItem]="task"></app-taskbox>
+                </ng-container>
+
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>

@@ -19,7 +19,7 @@ namespace SimpleTaskListSPA.Models.Repo
             {
                 options.SelectedCategoryId = Context.Categories.Min(c => c.Id);
             }
-            IQueryable<TaskItem> processedTasks = Context.Tasks.Include(t => t.Category);
+            IQueryable<TaskItem> processedTasks = Context.Tasks;
 
             QueryProcessing queryProcessing = new QueryProcessing(options);
             processedTasks = queryProcessing.FilterTasks(processedTasks);
@@ -53,18 +53,15 @@ namespace SimpleTaskListSPA.Models.Repo
 
             List<TaskItem> tasks = await processedTasks.ToListAsync();
 
-            tasks.ForEach(t => t.Category.TaskItems = null);
-
             return new TaskItemResponse
             {
-                Tasks = new Dictionary<string, IEnumerable<TaskItem>>
+                Tasks = new Dictionary<string, List<TaskItem>>
                 {
-                    ["active"] = tasks?.Where(t => t.IsCompleted == false),
-                    ["completed"] = tasks?.Where(t => t.IsCompleted == true)
+                    ["active"] = tasks?.Where(t => t.IsCompleted == false).ToList(),
+                    ["completed"] = tasks?.Where(t => t.IsCompleted == true).ToList()
                 }
             };
         }
-
 
         private async Task<TaskItemResponse> GetFoundTasksAsync(IQueryable<TaskItem> processedTasks,
             QueryProcessing queryProcessing)
@@ -109,7 +106,7 @@ namespace SimpleTaskListSPA.Models.Repo
                 : 7 - (int)DateTime.Today.DayOfWeek;
             DateTime thisWeekEndDate = DateTime.Today.AddDays(thisWeekRemainingDaysCount);
 
-            Dictionary<string, IEnumerable<TaskItem>> tasks = await Context.Tasks
+            Dictionary<string, List<TaskItem>> tasks = await Context.Tasks
                 .Where(t => t.PlanningDate <= thisWeekEndDate
                          && t.PlanningDate.HasValue
                          && t.EffectiveDate == null)
@@ -121,7 +118,7 @@ namespace SimpleTaskListSPA.Models.Repo
                     t1 => t1.PlanningDate,
                     t2 => t2.PlanningDate,
                     (t1, t2) => new { t1.PlanningDate, t2 })
-                .ToDictionaryAsync(a => a.PlanningDate.Value.ToShortDateString(), a => a.t2);
+                .ToDictionaryAsync(a => a.PlanningDate.Value.ToShortDateString(), a => a.t2.ToList());
 
             return new TaskItemResponse
             {
@@ -136,7 +133,7 @@ namespace SimpleTaskListSPA.Models.Repo
                 .Where(c => c.Id > minId)
                 .OrderBy(c => c.Name);
 
-            Dictionary<string, IEnumerable<TaskItem>> tasks = await Context.Categories
+            Dictionary<string, List<TaskItem>> tasks = await Context.Categories
                 .Where(c => c.Id == minId)
                 .Concat(secondCategories).GroupJoin(
                     processedTasks,
@@ -144,7 +141,7 @@ namespace SimpleTaskListSPA.Models.Repo
                     t => t.CategoryId,
                     (category, taskItems) => new { category.Name, taskItems })
                 .Where(a => a.taskItems.Count() > 0)
-                .ToDictionaryAsync(anonymous => anonymous.Name, anonymous => anonymous.taskItems);
+                .ToDictionaryAsync(anonymous => anonymous.Name, anonymous => anonymous.taskItems.ToList());
 
             return new TaskItemResponse
             {

@@ -7,6 +7,6 @@ namespace SimpleTaskListSPA.Data.DTO
 {
     public class TaskItemResponse
     {
-        public Dictionary<string, IEnumerable<TaskItem>> Tasks { get; set; }
+        public Dictionary<string, List<TaskItem>> Tasks { get; set; }
     }
 }

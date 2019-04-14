@@ -5,6 +5,6 @@ export class TaskItemResponse {
         public tasks: TaskDict = null) { }
 }
 
-interface TaskDict {
+export interface TaskDict {
     [key: string]: Array<TaskItem>;
 }

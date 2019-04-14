@@ -7,7 +7,6 @@ export class Urls {
     seed: string = `${this.baseoptionsUrl}/seed`;
 
     private baseCategoryUrl: string = `/api/category`;
-    storeCategories: string = `${this.baseCategoryUrl}/storecategories`;
     categories: string = `${this.baseCategoryUrl}/categories`;
     category: string = `${this.baseCategoryUrl}/category`;
     category_create: string = `${this.baseCategoryUrl}/create`;

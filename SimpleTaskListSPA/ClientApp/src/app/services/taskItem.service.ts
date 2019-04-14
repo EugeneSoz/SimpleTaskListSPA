@@ -11,6 +11,7 @@ export class TaskService {
     constructor(
         private _url: Urls,
         private _rest: RestDatasource) {
+
         this.queryOptions = new QueryOptions();
         this.queryOptions.resetToDefault();
     }
@@ -30,7 +31,7 @@ export class TaskService {
         }        
     }
 
-    queryOptions: QueryOptions;
+    queryOptions: QueryOptions = null;
     taskItems: TaskItemResponse = null;
     activeTasks: Array<TaskItem> = null;
     completedTasks: Array<TaskItem> = null;

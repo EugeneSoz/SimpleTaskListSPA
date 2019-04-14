@@ -29,6 +29,10 @@ import { TaskService } from './services/taskItem.service';
 
 import localeRu from "@angular/common/locales/ru";
 import { registerLocaleData } from '@angular/common';
+import { Category_Changed, CategoryEventArgs } from './models/events/categoryEventArgs';
+import { Subject } from 'rxjs';
+import { CategoryService } from './services/category.service';
+import { QueryOptions } from './models/dataDTO/queryOptions';
 
 registerLocaleData(localeRu, "ru");
 
@@ -62,7 +66,11 @@ registerLocaleData(localeRu, "ru");
         AppRoutingModule,
         HttpClientModule
     ],
-    providers: [TaskService],
+    providers: [
+        TaskService,
+        CategoryService,
+        { provide: Category_Changed, useValue: new Subject<CategoryEventArgs>() }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

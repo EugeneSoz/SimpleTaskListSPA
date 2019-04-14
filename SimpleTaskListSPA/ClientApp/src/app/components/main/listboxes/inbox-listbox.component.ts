@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { TaskService } from '../../../services/taskItem.service';
 import { CompletedCountTitle } from '../../../models/completedCountTitle';
 import { TaskItem } from '../../../models/dataDTO/taskItem';
+import { BaseListBoxComponent } from '../../../viewmodels/baseListbox';
 
 @Component({
     templateUrl: './inbox-listbox.component.html',
 })
-export class InboxListboxComponent implements OnInit {
+export class InboxListboxComponent extends BaseListBoxComponent {
 
     constructor(
-        private _taskService: TaskService) { }
-
-    ngOnInit(): void {
-        this._taskService.recieveTasks();
+        taskService: TaskService) {
+        super(taskService);
     }
 
     private readonly _completedCountTitle: CompletedCountTitle = new CompletedCountTitle();

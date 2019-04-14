@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { TaskService } from '../../services/taskItem.service';
 import { TaskItem } from '../../models/dataDTO/taskItem';
 
@@ -9,7 +11,8 @@ import { TaskItem } from '../../models/dataDTO/taskItem';
 export class TaskboxComponent {
 
     constructor(
-        private _taskService: TaskService) { }
+        private _taskService: TaskService) {
+    }
 
     @Input() taskItem: TaskItem = null;
 

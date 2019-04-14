@@ -1,10 +1,13 @@
+import { Injectable } from '@angular/core';
+
 export class QueryOptions {
     constructor(
         public sortPropertyName?: string,
         public descendingOrder?: boolean,
         public searchPropertyNames?: Array<string>,
         public searchTerm?: string,
-        public selectedCategoryId?: number) { }
+        public selectedCategoryId?: number) {
+    }
 
     resetToDefault() {
         this.sortPropertyName = "";
