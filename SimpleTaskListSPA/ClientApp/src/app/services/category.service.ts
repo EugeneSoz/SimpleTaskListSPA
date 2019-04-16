@@ -21,11 +21,29 @@ export class CategoryService {
 
     currentPageUrl: string = null;
     selectedCategoryTitle: string = null;
-    selectedCategory: CategoryResponse = new CategoryResponse();
+    private _selectedCategoryBeforeSearchWasUsed: CategoryResponse = null;
+    private _selectedCategory: CategoryResponse = new CategoryResponse();
 
     //свойство используется для построения списка категорий
     displayedCategories: Array<DisplayedCategory> = new Array<DisplayedCategory>();
     categories: Array<CategoryResponse> = new Array<CategoryResponse>();
+
+    get selectedCategory(): CategoryResponse {
+        return this._selectedCategory;
+    }
+
+    set selectedCategory(value: CategoryResponse) {
+        if (value.id == 0) {
+            this._selectedCategoryBeforeSearchWasUsed = this._selectedCategory;
+            this._selectedCategory = value;
+        }
+        else {
+            this._selectedCategory = value;
+            this._selectedCategoryBeforeSearchWasUsed = null;
+        }
+        this._taskService.queryOptions.selectedCategoryId = this._selectedCategory.id;
+        this.selectedCategoryTitle = this._selectedCategory.name;
+    }
 
     //загрузить категории с сервера
     getCategories() {
@@ -37,7 +55,7 @@ export class CategoryService {
                     if (this.selectedCategory.id == 0) {
                         let minCategoryId = Math.min(...this.categories.map(c => c.id));
                         this.selectedCategory = cat.find(c => c.id == minCategoryId);
-                        this.currentPageUrl = this.getPageUrl(this.selectedCategory.id);
+                        this.currentPageUrl = this.getPageUrl(this._selectedCategory.id);
                     }
                 }
 

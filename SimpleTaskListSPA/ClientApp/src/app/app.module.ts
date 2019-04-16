@@ -6,17 +6,13 @@ import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbars/toolbar.component';
 import { ToolbarTitleComponent } from './components/toolbars/toolbar-title.component';
 import { ActionsComponent } from './components/toolbars/actions.component';
-import { SortingDropdownComponent } from './components/toolbars/sorting-dropdown.component';
 import { CategoryFilterComponent } from './components/sidebar/category-filter.component';
 import { SearchToolbarComponent } from './components/sidebar/search-toolbar.component';
 import { ValidationComponent } from './components/shared/validation.component';
 import { DeleteMessageComponent } from './components/modals/delete-message.component';
 import { CategoryFormComponent } from './components/modals/category-form.component';
 import { FoundListboxComponent } from './components/main/listboxes/found-listbox.component';
-import { StarredListboxComponent } from './components/main/listboxes/starred-listbox.component';
 import { InboxListboxComponent } from './components/main/listboxes/inbox-listbox.component';
-import { TodayListboxComponent } from './components/main/listboxes/today-listbox.component';
-import { WeekListboxComponent } from './components/main/listboxes/week-listbox.component';
 import { TaskboxComponent } from './components/main/taskbox.component';
 import { TaskActionsComponent } from './components/main/task-actions.component';
 import { MainLayoutComponent } from './components/layouts/main-layout.component';
@@ -32,7 +28,7 @@ import { registerLocaleData } from '@angular/common';
 import { Category_Changed, CategoryEventArgs } from './models/events/categoryEventArgs';
 import { Subject } from 'rxjs';
 import { CategoryService } from './services/category.service';
-import { QueryOptions } from './models/dataDTO/queryOptions';
+import { SpecialListboxComponent } from './components/main/listboxes/special-listbox.component';
 
 registerLocaleData(localeRu, "ru");
 
@@ -42,17 +38,14 @@ registerLocaleData(localeRu, "ru");
         ToolbarComponent,
         ToolbarTitleComponent,
         ActionsComponent,
-        SortingDropdownComponent,
         CategoryFilterComponent,
         SearchToolbarComponent,
         ValidationComponent,
         DeleteMessageComponent,
         CategoryFormComponent,
         FoundListboxComponent,
-        StarredListboxComponent,
+        SpecialListboxComponent,
         InboxListboxComponent,
-        TodayListboxComponent,
-        WeekListboxComponent,
         TaskboxComponent,
         TaskActionsComponent,
         TaskCreationComponent,

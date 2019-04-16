@@ -42,4 +42,8 @@ export class TaskFormComponent {
     get isFormShown(): boolean {
         return this._taskService.isFormShown;
     }
+
+    onHideForm(): void {
+        this._taskService.isFormShown = false;
+    }
 }

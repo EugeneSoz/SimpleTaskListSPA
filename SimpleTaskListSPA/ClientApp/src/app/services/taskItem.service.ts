@@ -38,7 +38,7 @@ export class TaskService {
     taskItems: TaskItemResponse = null;
     activeTasks: Array<TaskItem> = null;
     completedTasks: Array<TaskItem> = null;
-    isFormShown: boolean = true;
+    isFormShown: boolean = false;
     dropdownlist: DropdownList = null;
     isFormInEditMode: boolean = false;
 
@@ -66,5 +66,6 @@ export class TaskService {
         else {
             this.queryOptions.sortPropertyName = sortPropertyName;
         }
+        this.recieveTasks();
     }
 }

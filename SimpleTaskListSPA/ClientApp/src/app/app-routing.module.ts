@@ -5,9 +5,7 @@ import { MainLayoutComponent } from './components/layouts/main-layout.component'
 import { DataOptionsComponent } from './components/options/data-options.component';
 import { InboxListboxComponent } from './components/main/listboxes/inbox-listbox.component';
 import { FoundListboxComponent } from './components/main/listboxes/found-listbox.component';
-import { StarredListboxComponent } from './components/main/listboxes/starred-listbox.component';
-import { TodayListboxComponent } from './components/main/listboxes/today-listbox.component';
-import { WeekListboxComponent } from './components/main/listboxes/week-listbox.component';
+import { SpecialListboxComponent } from './components/main/listboxes/special-listbox.component';
 
 const routes: Routes = [
     {
@@ -16,9 +14,9 @@ const routes: Routes = [
             { path: "inbox", component: InboxListboxComponent },
             { path: "", component: InboxListboxComponent },
             { path: "found", component: FoundListboxComponent },
-            { path: "starred", component: StarredListboxComponent },
-            { path: "today", component: TodayListboxComponent },
-            { path: "week", component: WeekListboxComponent },
+            { path: "starred", component: SpecialListboxComponent },
+            { path: "today", component: SpecialListboxComponent },
+            { path: "week", component: SpecialListboxComponent },
         ]
     },
     { path: "options", component: DataOptionsComponent }

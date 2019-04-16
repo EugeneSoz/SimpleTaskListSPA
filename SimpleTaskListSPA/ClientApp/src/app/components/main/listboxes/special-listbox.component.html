@@ -1,4 +1,4 @@
-<app-task-creation></app-task-creation>
+<app-task-creation *ngIf="isTaskCreationVisible"></app-task-creation>
 
 <ng-container *ngIf="tasks != null && keys.length > 0">
     <ng-container *ngFor="let key of keys">

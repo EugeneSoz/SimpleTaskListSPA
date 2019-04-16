@@ -3,14 +3,16 @@ import { Component } from '@angular/core';
 import { BaseListBoxComponent } from '../../../viewmodels/baseListbox';
 import { TaskDict } from '../../../models/dataDTO/taskItemResponse';
 import { TaskService } from '../../../services/taskItem.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
-    templateUrl: './today-listbox.component.html',
+    templateUrl: './special-listbox.component.html',
 })
-export class TodayListboxComponent extends BaseListBoxComponent {
+export class SpecialListboxComponent extends BaseListBoxComponent {
 
     constructor(
-        taskService: TaskService) {
+        taskService: TaskService,
+        private _categoryService: CategoryService) {
         super(taskService);
     }
 
@@ -20,5 +22,11 @@ export class TodayListboxComponent extends BaseListBoxComponent {
 
     get keys(): Array<string> {
         return Object.keys(this._taskService.taskItems.tasks);
+    }
+
+    get isTaskCreationVisible(): boolean {
+        return this._categoryService.currentPageUrl == "/week"
+            ? false
+            : true;
     }
 }
