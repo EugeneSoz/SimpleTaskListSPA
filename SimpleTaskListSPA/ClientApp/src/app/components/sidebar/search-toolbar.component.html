@@ -1,12 +1,15 @@
 <div id="search-toolbar">
     <div class="search-input-wrapper">
-        <input type="text" class="chromeless search-input" />
+        <input #searchInput type="text" class="chromeless search-input" [value]="searchTerm"
+            (input)="onInput(searchInput.value)"
+            (keyup.enter)="onSearch()" />
     </div>
     <span class="search-icon-wrapper">
         <a *ngIf="!isCancelButtonVisible" class="search-icon" style="color: #fff;">
             <i class="fas fa-search"></i>
         </a>
-        <a *ngIf="isCancelButtonVisible" class="search-icon" style="color: #fff;">
+        <a *ngIf="isCancelButtonVisible" class="search-icon" style="color: #fff;"
+            (click)="onClearSearchTerm()">
             <i class="fas fa-times"></i>
         </a>
     </span>

@@ -1,6 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observer } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDataSource';
@@ -25,10 +25,13 @@ export class CategoryService {
         });
     }
 
+    categoriesChanged: Subject<boolean> = new Subject<boolean>();
+
     currentPageUrl: string = null;
     selectedCategoryTitle: string = null;
     private _selectedCategoryBeforeSearchWasUsed: CategoryResponse = null;
     private _selectedCategory: CategoryResponse = new CategoryResponse();
+    private _searchWasUsed: boolean = false;
 
     //свойство используется для построения списка категорий
     displayedCategories: Array<DisplayedCategory> = new Array<DisplayedCategory>();
@@ -40,7 +43,9 @@ export class CategoryService {
 
     set selectedCategory(value: CategoryResponse) {
         if (value.id == 0) {
-            this._selectedCategoryBeforeSearchWasUsed = this._selectedCategory;
+            if (!this.searchWasUsed) {
+                this._selectedCategoryBeforeSearchWasUsed = this._selectedCategory;
+            }
             this._selectedCategory = value;
         }
         else {
@@ -49,6 +54,17 @@ export class CategoryService {
         }
         this._taskService.queryOptions.selectedCategoryId = this._selectedCategory.id;
         this.selectedCategoryTitle = this._selectedCategory.name;
+    }
+
+    get searchWasUsed(): boolean {
+        return this._searchWasUsed;
+    }
+
+    set searchWasUsed(value: boolean) {
+        this._searchWasUsed = value;
+        this.selectedCategoryTitle = this._searchWasUsed
+            ? this._taskService.queryOptions.searchTerm
+            : this.selectedCategory.name;
     }
 
     //загрузить категории с сервера
@@ -85,7 +101,30 @@ export class CategoryService {
     }
 
     searchByName(searchTerm: string): void {
+        this._taskService.queryOptions.searchTerm = searchTerm;
+        this.selectedCategory = new CategoryResponse();
+        let url = this.getPageUrl(0);
 
+        if (url == this.currentPageUrl) {
+            this._taskService.recieveTasks();
+        }
+        else {
+            this._router.navigateByUrl(url);
+        }
+        this.currentPageUrl = url;
+        this.searchWasUsed = true;
+    }
+
+    resetSearchResult(): void {
+        //исли поиск произведён
+        if (this._searchWasUsed) {
+            this._taskService.queryOptions.searchTerm = "";
+            this.selectedCategory = this._selectedCategoryBeforeSearchWasUsed;
+            this.currentPageUrl = this.getPageUrl(this._selectedCategory.id);
+
+            this._router.navigateByUrl(this.currentPageUrl);
+            this.searchWasUsed = false;
+        }
     }
 
     private createDisplayedCategoriesList(categories: Array<CategoryResponse>): Array<DisplayedCategory>

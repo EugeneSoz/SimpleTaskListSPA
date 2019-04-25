@@ -20,7 +20,7 @@ export class FoundListboxComponent extends BaseListBoxComponent {
 
     get message(): string {
         return this._taskService.taskItems.tasks != null
-            && Object.keys(this._taskService.taskItems.tasks).length > 0  ? "" : "Ничего не найдено";
+            && Object.keys(this._taskService.taskItems.tasks).length > 0  ? null : "Ничего не найдено";
     }
 
     get keys(): Array<string> {

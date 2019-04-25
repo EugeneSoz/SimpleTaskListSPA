@@ -1,4 +1,4 @@
-<div *ngIf="message != null || message != ''" class="alert alert-info">{{message}}</div>
+<div *ngIf="message != null" class="alert alert-info">{{message}}</div>
 
 <ng-container *ngIf="tasks != null && keys.length > 0">
     <ng-container *ngFor="let key of keys">
