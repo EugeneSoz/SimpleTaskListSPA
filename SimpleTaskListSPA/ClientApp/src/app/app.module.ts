@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+
 import { AppRoutingModule } from './app-routing.module';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbars/toolbar.component';
@@ -23,12 +27,20 @@ import { TaskFormComponent } from './components/actionbar/task-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskService } from './services/taskItem.service';
 
-import localeRu from "@angular/common/locales/ru";
 import { registerLocaleData } from '@angular/common';
-import { Category_Changed, CategoryEventArgs } from './models/events/categoryEventArgs';
+import localeRu from "@angular/common/locales/ru";
+
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale); 
+
 import { Subject } from 'rxjs';
 import { CategoryService } from './services/category.service';
 import { SpecialListboxComponent } from './components/main/listboxes/special-listbox.component';
+import { RangeValidatorDirective } from './directives/range.directive';
+import { MinValueValidatorDirective } from './directives/min-value.directive';
+import { Errors_Received, ErrorsEventArgs } from './models/events/errorsEventArgs';
+import { ServerValidationComponent } from './components/shared/server-validation.component';
 
 registerLocaleData(localeRu, "ru");
 
@@ -52,17 +64,23 @@ registerLocaleData(localeRu, "ru");
         MainLayoutComponent,
         OptionsLayoutComponent,
         DataOptionsComponent,
-        TaskFormComponent
+        TaskFormComponent,
+        ServerValidationComponent,
+        RangeValidatorDirective,
+        MinValueValidatorDirective,
     ],
     imports: [
         BrowserModule,
+        FormsModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BsDatepickerModule.forRoot()
     ],
     providers: [
         TaskService,
         CategoryService,
-        { provide: Category_Changed, useValue: new Subject<CategoryEventArgs>() }
+        { provide: Errors_Received, useValue: new Subject<ErrorsEventArgs>() },
+        { provide: LOCALE_ID, useValue: 'ru' }
     ],
     bootstrap: [AppComponent]
 })

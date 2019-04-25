@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { Subject } from 'rxjs';
+
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDataSource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
@@ -21,19 +23,27 @@ export class TaskService {
 
     private _selectedTask: TaskItem = new TaskItem();
 
+    tasksChanged: Subject<boolean> = new Subject<boolean>();
+
     get selectedTask(): TaskItem {
         return this._selectedTask;
     }
 
     set selectedTask(value: TaskItem) {
-        if (this._selectedTask != null && this._selectedTask.id == value.id) {
+        if (value != null && this._selectedTask.id == value.id || value.id == 0) {
             this._selectedTask = new TaskItem();
+            this.isFormInEditMode = false;
         }
         else {
-            this._selectedTask = value;
+            this._selectedTask = new TaskItem();
+            Object.assign(this._selectedTask, value);
+            this._selectedTask.planningDate = new Date(value.planningDate.toString());
+            this.isFormInEditMode = true;
         }        
     }
 
+    //ошибки полученные с сервера
+    errors: Array<string> = null;
     queryOptions: QueryOptions = null;
     taskItems: TaskItemResponse = null;
     activeTasks: Array<TaskItem> = null;
@@ -55,8 +65,24 @@ export class TaskService {
             });
     }
 
-    updateTask(taskItem: TaskItem): void {
-        
+    createTask(): void {
+        this._rest.sendRequest<{}, TaskItem>(HttpMethod.post, this._url.task_create, this._selectedTask)
+            .subscribe(
+                () => {
+                    this.tasksChanged.next(true);
+                    this.recieveTasks();
+                },
+                (error) => this.errors = error);
+    }
+
+    updateTask(): void {
+        this._rest.sendRequest<{}, TaskItem>(HttpMethod.put, this._url.task_update, this._selectedTask)
+            .subscribe(
+                () => {
+                    this.tasksChanged.next(true);
+                    this.recieveTasks();
+            },
+            (error) => this.errors = error);
     }
 
     sortBy(sortPropertyName: string): void {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SimpleTaskListSPA.Controllers
 {
@@ -14,7 +15,7 @@ namespace SimpleTaskListSPA.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Ok(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
             try
             {
@@ -23,7 +24,7 @@ namespace SimpleTaskListSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно создать запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             return Created("", entity);
@@ -33,7 +34,7 @@ namespace SimpleTaskListSPA.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             bool isOk;
@@ -44,7 +45,7 @@ namespace SimpleTaskListSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно сохранить запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             if (!isOk)
@@ -65,7 +66,7 @@ namespace SimpleTaskListSPA.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $@"Невозможно удалить запись: {ex.Message}");
-                return BadRequest(ModelState);
+                return BadRequest(GetServerErrors(ModelState));
             }
 
             if (!isOk)
@@ -73,6 +74,20 @@ namespace SimpleTaskListSPA.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        protected List<string> GetServerErrors(ModelStateDictionary modelstate)
+        {
+            List<string> errors = new List<string>();
+            foreach (ModelStateEntry error in modelstate.Values)
+            {
+                foreach (ModelError e in error.Errors)
+                {
+                    errors.Add(e.ErrorMessage);
+                }
+            }
+
+            return errors;
         }
     }
 }

@@ -28,40 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\enums\categoryFilterType.ts" />
-    <None Remove="ClientApp\src\app\helpers\httpMethod.ts" />
-    <None Remove="ClientApp\src\app\models\completedCountTitle.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\category.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\categoryResponse.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\migrationsOptions.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\taskDates.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\taskItem.ts" />
-    <None Remove="ClientApp\src\app\models\dataDTO\taskItemResponse.ts" />
-    <None Remove="ClientApp\src\app\models\displayedCategory.ts" />
-    <None Remove="ClientApp\src\app\models\events\categoryEventArgs.ts" />
-    <None Remove="ClientApp\src\app\viewmodels\baseListbox.ts" />
-    <None Remove="ClientApp\src\app\viewmodels\dropdownlist.ts" />
+    <None Remove="ClientApp\src\app\directives\min-value.directive.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\app\models\http\" />
-    <Folder Include="Files\DataForUpload\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\enums\categoryFilterType.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\httpMethod.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\completedCountTitle.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\category.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\categoryResponse.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\migrationsOptions.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\taskDates.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\taskItem.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\dataDTO\taskItemResponse.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\displayedCategory.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\events\categoryEventArgs.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\baseListbox.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\dropdownlist.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\directives\min-value.directive.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

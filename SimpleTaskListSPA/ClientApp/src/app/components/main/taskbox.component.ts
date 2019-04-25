@@ -51,12 +51,12 @@ export class TaskboxComponent {
     //пометить как завершённую
     onChangeCompletionTask(value: boolean) {
         this.taskItem.isCompleted = value;
-        this._taskService.updateTask(this.taskItem);
+        this._taskService.updateTask();
     }
 
     //пометить как важную
     onSwitchTaskImportance(value: boolean) {
         this.taskItem.isImportant = !this.taskItem.isImportant;
-        this._taskService.updateTask(this.taskItem);
+        this._taskService.updateTask();
     }
 }

@@ -1,0 +1,8 @@
+<div *ngIf="errors != null" class="bg-danger text-white p-2">
+    В форме имеются следующие ошибки:
+    <ul>
+        <li *ngFor="let error of errors">
+            {{error}}
+        </li>
+    </ul>
+</div>

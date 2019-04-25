@@ -8,7 +8,7 @@
         </label>
     </div>
     <div class="col-md-auto" (click)="onSelectOrDeselectTask()">
-        <span id="date">{{taskItem.planningDate | date:"dd.MM.yyyy":"ru"}}</span>
+        <span id="date">{{taskItem.planningDate | date: 'shortDate' }}</span>
     </div>
     <div [class]="'col-md-auto ' + starColor" (click)="onSwitchTaskImportance()">
         <a><i class="fas fa-star fa-lg"></i></a>

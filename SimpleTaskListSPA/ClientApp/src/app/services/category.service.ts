@@ -8,7 +8,6 @@ import { DisplayedCategory } from '../models/displayedCategory';
 import { CategoryFilterType } from '../enums/categoryFilterType';
 import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 import { HttpMethod } from '../helpers/httpMethod';
-import { CategoryEventArgs, Category_Changed } from '../models/events/categoryEventArgs';
 import { TaskService } from './taskItem.service';
 
 @Injectable()
@@ -17,7 +16,14 @@ export class CategoryService {
         private _url: Urls,
         private _rest: RestDatasource,
         private _router: Router,
-        private _taskService: TaskService) { }
+        private _taskService: TaskService) {
+
+        _taskService.tasksChanged.subscribe(response => {
+            if (response == true) {
+                this.getCategories();
+            }
+        });
+    }
 
     currentPageUrl: string = null;
     selectedCategoryTitle: string = null;

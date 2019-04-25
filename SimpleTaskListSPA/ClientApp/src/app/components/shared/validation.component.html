@@ -1,3 +1,5 @@
-<p>
-  validation works!
-</p>
+<ul class="text-danger list-unstyled" *ngIf="messages != null">
+    <li *ngFor="let error of messages">
+        {{error}}
+    </li>
+</ul>

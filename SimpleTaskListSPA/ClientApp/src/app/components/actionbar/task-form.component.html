@@ -1,53 +1,80 @@
 <div *ngIf="isFormShown" id="details">
     <div class="inner">
-        <div class="top">
-            <a class="details-checkbox" [ngSwitch]="newTask.isCompleted">
-                <span *ngSwitchCase="true" class="text-info">
-                    <i class="fas fa-check-square fa-lg"></i>
-                </span>
-                <span *ngSwitchCase="false" class="text-info">
-                    <i class="fas fa-square fa-lg"></i>
-                </span>
-            </a>
-            <div class="title-container">
-                <input id="dp" class="form-control form-control-sm"
-                    type="text" placeholder="Укажите дату" />
-            </div>
-            <a class="details-star" [ngSwitch]="newTask.isImportant">
-                <span *ngSwitchCase="true" class="text-warning">
-                    <i class="fas fa-star fa-lg"></i>
-                </span>
-                <span *ngSwitchCase="false" class="text-info">
-                    <i class="fas fa-star fa-lg"></i>
-                </span>
-            </a>
-        </div>
-        <div style="padding: 8px;">
-            <input class="form-control form-control-sm" type="text" />
-        </div>
-        <div style="padding: 8px;">
-            <select class="form-control form-control-sm">
-                <option value="0">Укажите категорию</option>
-                <option *ngFor="let category of categories" [value]="category.id">
-                    {{category.name}}
-                </option>
-            </select>
+        <div class="bg-info text-white p-2">
+            TaskItem: {{jsonTaskItem}}
         </div>
 
-        <div style="padding: 16px 8px 8px 8px;">
-            <button [class]="submitBtnCssClass">
-                {{submitBtnTitle}}
-            </button>
-        </div>
+        <server-validation [errors]="errors"></server-validation>
+
+        <form novalidate #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <div class="top">
+                <a class="details-checkbox" [ngSwitch]="newTask.isCompleted" 
+                (click)="onSwitchTaskCompletion()">
+                    <span *ngSwitchCase="true" class="text-info">
+                        <i class="fas fa-check-square fa-lg"></i>
+                    </span>
+                    <span *ngSwitchCase="false" class="text-info">
+                        <i class="fas fa-square fa-lg"></i>
+                    </span>
+                </a>
+                <div class="title-container">
+                    <input class="form-control form-control-sm" type="text" placeholder="Укажите дату"
+                        name="planningDate"
+                        #planningDate="ngModel"
+                        [(ngModel)]="newTask.planningDate"
+                        bsDatepicker />
+                        <app-validation [messages]="getErrors(planningDate, 'planningDate')"></app-validation>
+                </div>
+                <a class="details-star" [ngSwitch]="newTask.isImportant" 
+                    (click)="onSwitchTaskImportance()">
+                    <span *ngSwitchCase="true" class="text-warning">
+                        <i class="fas fa-star fa-lg"></i>
+                    </span>
+                    <span *ngSwitchCase="false" class="text-info">
+                        <i class="fas fa-star fa-lg"></i>
+                    </span>
+                </a>
+            </div>
+            <div style="padding: 8px;">
+                <input class="form-control form-control-sm" type="text" 
+                name="name"
+                [(ngModel)]="newTask.name"
+                #name="ngModel"
+                required
+                appRange="3,60" />
+                <app-validation [messages]="getErrors(name, 'name')"></app-validation>
+            </div>
+            <div style="padding: 8px;">
+                <select class="form-control form-control-sm" 
+                name="categoryId"
+                #categoryId="ngModel"
+                [(ngModel)]="newTask.categoryId"
+                appMinValue="1">
+                    <option value="0">Укажите категорию</option>
+                    <option *ngFor="let category of categories" [value]="category.id">
+                        {{category.name}}
+                    </option>
+                </select>
+                <app-validation [messages]="getErrors(categoryId, 'categoryId')"></app-validation>
+            </div>
+            
+            <div style="padding: 16px 8px 8px 8px;">
+                <button type="submit" [class]="submitBtnCssClass">
+                    {{submitBtnTitle}}
+                </button>
+            </div>
+            
+        </form>
+
         <div class="bottom">
             <button class="btn btn-info" (click)="onHideForm()">
                 <i class="fas fa-arrow-right"></i>
             </button>
-            <label>{{newTask.creationDate}}</label>
+            <label *ngIf="newTask.creationDate == null">Новая задача</label>
+            <label *ngIf="newTask.creationDate != null">Создана: {{newTask.creationDate | date:"shortDate"}}г.</label>
             <button class="btn btn-danger">
                 <i class="fas fa-trash-alt"></i>
             </button>
         </div>
-
     </div>
 </div>
