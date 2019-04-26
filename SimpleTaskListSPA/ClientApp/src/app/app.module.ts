@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbars/toolbar.component';
@@ -74,7 +75,8 @@ registerLocaleData(localeRu, "ru");
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot()
     ],
     providers: [
         TaskService,
@@ -82,6 +84,7 @@ registerLocaleData(localeRu, "ru");
         { provide: Errors_Received, useValue: new Subject<ErrorsEventArgs>() },
         { provide: LOCALE_ID, useValue: 'ru' }
     ],
+    entryComponents: [CategoryFormComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

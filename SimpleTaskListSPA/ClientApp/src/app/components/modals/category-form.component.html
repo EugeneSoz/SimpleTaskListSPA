@@ -1,3 +1,31 @@
-<p>
-  category-form works!
-</p>
+<div class="modal-header">
+    <h5 class="modal-title pull-left">{{formHeader}}</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div *ngIf="newCategory != null" class="modal-body">
+    <server-validation [errors]="errors"></server-validation>
+    
+    <form novalidate #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <input class="form-control" type="text" placeholder="Название списка" 
+            name="name" #name="ngModel"
+            [(ngModel)]="newCategory.name"
+            required
+            appRange="3,60" />
+        <app-validation [messages]="getErrors(name, 'name')"></app-validation>
+
+        <div class="d-flex flex-row mt-4">
+            <button *ngIf="isEditMode" type="button" class="btn btn-danger mr-2">
+                Удалить
+            </button>
+            <button type="submit" [class]="submitBtnCssClass" [disabled]="form.invalid">
+                {{submitBtnTitle}}
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="onResetForm()">
+                Отменить
+            </button>
+        </div>
+        
+    </form>
+</div>

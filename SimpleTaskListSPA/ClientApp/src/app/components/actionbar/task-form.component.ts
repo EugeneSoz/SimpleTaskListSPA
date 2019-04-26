@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { TaskService } from '../../services/taskItem.service';
 import { CategoryService } from '../../services/category.service';
 import { TaskItem } from '../../models/dataDTO/taskItem';
 import { Category } from '../../models/dataDTO/category';
-import { NgModel, NgForm } from '@angular/forms';
 import { EntityType } from '../../enums/entityType';
-import { ErrorAttributes } from '../../enums/errorAttributes';
 import { ModelErrors } from '../../models/forms/modelErrors';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BaseFormComponent } from '../../viewmodels/baseForm';
 
 @Component({
     selector: 'app-task-form',
     templateUrl: './task-form.component.html',
 })
-export class TaskFormComponent implements OnInit {
+export class TaskFormComponent extends BaseFormComponent implements OnInit {
 
     constructor(
         private _taskService: TaskService,
         private _categoryService: CategoryService,
         private _localeService: BsLocaleService) {
 
-        this._modelErrors = new ModelErrors();
+        super(new ModelErrors(), EntityType.TaskItem);
     }
-
-    private _entityType: EntityType = EntityType.TaskItem;
-    private _modelErrors: ModelErrors;
 
     get newTask(): TaskItem {
         return this._taskService.selectedTask;
@@ -81,15 +79,6 @@ export class TaskFormComponent implements OnInit {
         this.newTask.isImportant = !this.newTask.isImportant;
     }
 
-    getErrors(control: NgModel, property: string): Array<string> {
-        if (control.dirty && control.invalid) {
-            return this.getValidationMessages(control, property);
-        }
-        else {
-            return null;
-        }
-    }
-
     onSubmit(form: NgForm): void {
         if (form.valid) {
             if (this.isEditMode) {
@@ -101,30 +90,5 @@ export class TaskFormComponent implements OnInit {
             this._taskService.selectedTask = new TaskItem();
             form.reset();
         }
-    }
-
-    private getValidationMessages(control: NgModel, property: string): Array<string> {
-        let messages: Array<string> = new Array<string>();
-
-        if (control.errors) {
-            for (let errorName in control.errors) {
-                switch (errorName) {
-                    case ErrorAttributes.required:
-                        messages.push(this._modelErrors.getValidationErrors(this._entityType,
-                            property, errorName));
-                        break;
-                    case ErrorAttributes.range:
-                        messages.push(this._modelErrors.getValidationErrors(this._entityType,
-                            property, errorName));
-                        break;
-                    case ErrorAttributes.minValue:
-                        messages.push(this._modelErrors.getValidationErrors(this._entityType,
-                            property, errorName));
-                        break;
-                }
-            }
-        }
-
-        return messages;
     }
 }

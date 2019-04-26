@@ -29,10 +29,12 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\directives\min-value.directive.ts" />
+    <None Remove="ClientApp\src\app\viewmodels\baseForm.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\directives\min-value.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\baseForm.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

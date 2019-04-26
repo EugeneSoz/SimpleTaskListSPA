@@ -1,8 +1,5 @@
 <div *ngIf="isFormShown" id="details">
     <div class="inner">
-        <div class="bg-info text-white p-2">
-            TaskItem: {{jsonTaskItem}}
-        </div>
 
         <server-validation [errors]="errors"></server-validation>
 
@@ -59,7 +56,7 @@
             </div>
             
             <div style="padding: 16px 8px 8px 8px;">
-                <button type="submit" [class]="submitBtnCssClass">
+                <button type="submit" [class]="submitBtnCssClass" [disabled]="form.invalid">
                     {{submitBtnTitle}}
                 </button>
             </div>

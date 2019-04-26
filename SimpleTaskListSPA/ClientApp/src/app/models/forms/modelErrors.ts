@@ -49,7 +49,7 @@ export class ModelErrors {
             msg = "Укажите название";
         }
         else if (property == this._nh.nameof<Category>("name")
-            && errorName == ErrorAttributes.minlength) {
+            && errorName == ErrorAttributes.range) {
             msg = "Название должно быть от 3 до 60 символов";
         }
 

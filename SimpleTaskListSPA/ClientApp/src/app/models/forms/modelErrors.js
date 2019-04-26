@@ -25,8 +25,12 @@ var ModelErrors = /** @class */ (function () {
             && errorName == errorAttributes_1.ErrorAttributes.range) {
             msg = "Название должно быть от 3 до 60 символов";
         }
+        else if (property == this._nh.nameof("planningDate")
+            && errorName == errorAttributes_1.ErrorAttributes.required) {
+            msg = "Укажите дату в формате чч.мм.гггг";
+        }
         else if (property == this._nh.nameof("categoryId")
-            && errorName == errorAttributes_1.ErrorAttributes.range) {
+            && errorName == errorAttributes_1.ErrorAttributes.minValue) {
             msg = "Укажите категорию задачи";
         }
         return msg;
@@ -38,7 +42,7 @@ var ModelErrors = /** @class */ (function () {
             msg = "Укажите название";
         }
         else if (property == this._nh.nameof("name")
-            && errorName == errorAttributes_1.ErrorAttributes.minlength) {
+            && errorName == errorAttributes_1.ErrorAttributes.range) {
             msg = "Название должно быть от 3 до 60 символов";
         }
         return msg;

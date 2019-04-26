@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/dataDTO/category';
 import { DisplayedCategory } from '../../models/displayedCategory';
 import { CategoryResponse } from '../../models/dataDTO/categoryResponse';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { CategoryFormComponent } from '../modals/category-form.component';
 
 @Component({
     selector: 'app-category-filter',
@@ -11,7 +12,8 @@ import { CategoryResponse } from '../../models/dataDTO/categoryResponse';
 export class CategoryFilterComponent implements OnInit {
 
     constructor(
-        private _categoryService: CategoryService) { }
+        private _categoryService: CategoryService,
+        private modalService: BsModalService) { }
 
     get categories(): Array<DisplayedCategory> {
         return this._categoryService.displayedCategories;
@@ -22,11 +24,13 @@ export class CategoryFilterComponent implements OnInit {
     }
 
     onShowCreationForm(): void {
-
+        this._categoryService.isFormInEditMode = false;
+        this.modalService.show(CategoryFormComponent);
     }
 
     onShowEditForm(): void {
-
+        this._categoryService.isFormInEditMode = true;
+        this.modalService.show(CategoryFormComponent);
     }
 
     //не учитываем специальные категории и категорию с id = 1

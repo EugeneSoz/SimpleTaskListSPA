@@ -9,6 +9,7 @@ import { CategoryFilterType } from '../enums/categoryFilterType';
 import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 import { HttpMethod } from '../helpers/httpMethod';
 import { TaskService } from './taskItem.service';
+import { Category } from '../models/dataDTO/category';
 
 @Injectable()
 export class CategoryService {
@@ -25,8 +26,8 @@ export class CategoryService {
         });
     }
 
-    categoriesChanged: Subject<boolean> = new Subject<boolean>();
-
+    //ошибки полученные с сервера
+    errors: Array<string> = null;
     currentPageUrl: string = null;
     selectedCategoryTitle: string = null;
     private _selectedCategoryBeforeSearchWasUsed: CategoryResponse = null;
@@ -36,6 +37,9 @@ export class CategoryService {
     //свойство используется для построения списка категорий
     displayedCategories: Array<DisplayedCategory> = new Array<DisplayedCategory>();
     categories: Array<CategoryResponse> = new Array<CategoryResponse>();
+    isFormInEditMode: boolean = false;
+
+    selectedCategoryChanged: Subject<boolean> = new Subject<boolean>();
 
     get selectedCategory(): CategoryResponse {
         return this._selectedCategory;
@@ -83,6 +87,26 @@ export class CategoryService {
 
                 this.displayedCategories = this.createDisplayedCategoriesList(cat);
             });
+    }
+
+    createCategory(category: Category): void {
+        this._rest.sendRequest<{}, Category>(HttpMethod.post, this._url.category_create, category)
+            .subscribe(
+                () => {
+                    this.getCategories();
+                    this._taskService.recieveTasks();
+                },
+                (error) => this.errors = error);
+    }
+
+    updateCategory(category: Category): void {
+        this._rest.sendRequest<{}, Category>(HttpMethod.put, this._url.category_update, category)
+            .subscribe(
+                () => {
+                    this.getCategories();
+                    this._taskService.recieveTasks();
+                },
+                (error) => this.errors = error);
     }
 
     filterByCategory(category: CategoryResponse): void {
