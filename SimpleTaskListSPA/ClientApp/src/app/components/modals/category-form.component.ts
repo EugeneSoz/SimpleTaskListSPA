@@ -6,8 +6,9 @@ import { ModelErrors } from '../../models/forms/modelErrors';
 import { EntityType } from '../../enums/entityType';
 import { CategoryResponse } from '../../models/dataDTO/categoryResponse';
 import { BaseFormComponent } from '../../viewmodels/baseForm';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Category } from '../../models/dataDTO/category';
+import { DeleteMessageComponent } from './delete-message.component';
 
 @Component({
     selector: 'app-category-form',
@@ -17,7 +18,8 @@ export class CategoryFormComponent extends BaseFormComponent implements OnInit {
 
     constructor(
         private _categoryService: CategoryService,
-        public bsModalRef: BsModalRef) {
+        public bsModalRef: BsModalRef,
+        private _modalService: BsModalService) {
 
         super(new ModelErrors(), EntityType.Category);
     }
@@ -76,5 +78,14 @@ export class CategoryFormComponent extends BaseFormComponent implements OnInit {
     onResetForm(): void {
         this.bsModalRef.hide();
         this._categoryService.isFormInEditMode = false;
+    }
+
+    onDelete(): void {
+        const initialState = {
+            entityType: EntityType.Category,
+            entityId: this.newCategory.id
+        }
+        this.bsModalRef.hide();
+        this._modalService.show(DeleteMessageComponent, { initialState });
     }
 }

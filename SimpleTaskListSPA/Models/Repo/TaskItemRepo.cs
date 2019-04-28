@@ -12,7 +12,14 @@ namespace SimpleTaskListSPA.Models.Repo
     public class TaskItemRepo : BaseRepo<TaskItem>, ITaskItemRepo
     {
         public TaskItemRepo(DataContext ctx) : base(ctx) { }
-           
+        
+        public async Task<TaskItem> GetTaskAsync(long id)
+        {
+            TaskItem task = await GetEntities().SingleOrDefaultAsync(t => t.Id == id);
+
+            return task;
+        }
+
         public async Task<TaskItemResponse> ReceiveTasksAsync(QueryOptions options)
         {
             if (options.SelectedCategoryId == null)

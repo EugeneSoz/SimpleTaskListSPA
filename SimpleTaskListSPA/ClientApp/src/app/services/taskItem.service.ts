@@ -37,7 +37,10 @@ export class TaskService {
         else {
             this._selectedTask = new TaskItem();
             Object.assign(this._selectedTask, value);
-            this._selectedTask.planningDate = new Date(value.planningDate.toString());
+            if (this._selectedTask.planningDate != null) {
+                this._selectedTask.planningDate = new Date(value.planningDate.toString());
+            }
+            
             this.isFormInEditMode = true;
         }        
     }
@@ -45,12 +48,20 @@ export class TaskService {
     //ошибки полученные с сервера
     errors: Array<string> = null;
     queryOptions: QueryOptions = null;
+    task: TaskItem = null;
     taskItems: TaskItemResponse = null;
     activeTasks: Array<TaskItem> = null;
     completedTasks: Array<TaskItem> = null;
     isFormShown: boolean = false;
     dropdownlist: DropdownList = null;
     isFormInEditMode: boolean = false;
+
+    getTask(id: number): void {
+        this._rest.sendRequest<TaskItem, {}>(HttpMethod.get, `${this._url.task}/${id}`)
+            .subscribe(response => {
+                this.task = this._rest.getResult(response, HttpMethod.get);
+            });
+    }
 
     recieveTasks(): void {
         this._rest.sendRequest<TaskItemResponse, QueryOptions>(HttpMethod.post,
@@ -83,6 +94,18 @@ export class TaskService {
                     this.recieveTasks();
             },
             (error) => this.errors = error);
+    }
+
+    deleteTask(): void {
+        this._rest.sendRequest<boolean, TaskItem>(HttpMethod.delete, this._url.task_delete, this.task)
+            .subscribe(response => {
+                let isOk: boolean = this._rest.getBoolResult(response, HttpMethod.delete);
+                if (isOk) {
+                    this.tasksChanged.next(true);
+                    this.recieveTasks();
+                    this.task = null;
+                }
+            });
     }
 
     sortBy(sortPropertyName: string): void {

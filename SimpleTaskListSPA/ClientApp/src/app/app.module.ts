@@ -84,7 +84,7 @@ registerLocaleData(localeRu, "ru");
         { provide: Errors_Received, useValue: new Subject<ErrorsEventArgs>() },
         { provide: LOCALE_ID, useValue: 'ru' }
     ],
-    entryComponents: [CategoryFormComponent],
+    entryComponents: [CategoryFormComponent, DeleteMessageComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

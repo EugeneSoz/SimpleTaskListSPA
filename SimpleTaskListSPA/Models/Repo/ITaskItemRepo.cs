@@ -9,6 +9,7 @@ namespace SimpleTaskListSPA.Models.Repo
 {
     public interface ITaskItemRepo : IBaseRepo<TaskItem>
     {
+        Task<TaskItem> GetTaskAsync(long id);
         Task<TaskItemResponse> ReceiveTasksAsync(QueryOptions options);
     }
 }

@@ -14,6 +14,7 @@ export class Urls {
     category_delete: string = `${this.baseCategoryUrl}/delete`;
 
     private baseTaskUrl: string = `/api/taskitem`;
+    task: string = `${this.baseTaskUrl}/task`;
     tasks: string = `${this.baseTaskUrl}/tasks`;
     task_create: string = `${this.baseTaskUrl}/create`;
     task_update: string = `${this.baseTaskUrl}/update`;

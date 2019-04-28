@@ -9,6 +9,8 @@ import { EntityType } from '../../enums/entityType';
 import { ModelErrors } from '../../models/forms/modelErrors';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { BaseFormComponent } from '../../viewmodels/baseForm';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DeleteMessageComponent } from '../modals/delete-message.component';
 
 @Component({
     selector: 'app-task-form',
@@ -19,7 +21,8 @@ export class TaskFormComponent extends BaseFormComponent implements OnInit {
     constructor(
         private _taskService: TaskService,
         private _categoryService: CategoryService,
-        private _localeService: BsLocaleService) {
+        private _localeService: BsLocaleService,
+        private _modalService: BsModalService) {
 
         super(new ModelErrors(), EntityType.TaskItem);
     }
@@ -48,10 +51,6 @@ export class TaskFormComponent extends BaseFormComponent implements OnInit {
         return this.isEditMode
             ? "Изменить"
             : "Создать";
-    }
-
-    get jsonTaskItem(): string {
-        return JSON.stringify(this.newTask);
     }
 
     //отображается ли форма
@@ -90,5 +89,13 @@ export class TaskFormComponent extends BaseFormComponent implements OnInit {
             this._taskService.selectedTask = new TaskItem();
             form.reset();
         }
+    }
+
+    onDelete(): void {
+        const initialState = {
+            entityType: EntityType.TaskItem,
+            entityId: this.newTask.id
+        }
+        this._modalService.show(DeleteMessageComponent, { initialState });
     }
 }

@@ -16,7 +16,8 @@
         <app-validation [messages]="getErrors(name, 'name')"></app-validation>
 
         <div class="d-flex flex-row mt-4">
-            <button *ngIf="isEditMode" type="button" class="btn btn-danger mr-2">
+            <button *ngIf="isEditMode" type="button" class="btn btn-danger mr-2"
+                (click)="onDelete()">
                 Удалить
             </button>
             <button type="submit" [class]="submitBtnCssClass" [disabled]="form.invalid">

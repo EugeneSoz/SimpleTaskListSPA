@@ -69,7 +69,7 @@
             </button>
             <label *ngIf="newTask.creationDate == null">Новая задача</label>
             <label *ngIf="newTask.creationDate != null">Создана: {{newTask.creationDate | date:"shortDate"}}г.</label>
-            <button class="btn btn-danger">
+            <button class="btn btn-danger" (click)="onDelete()">
                 <i class="fas fa-trash-alt"></i>
             </button>
         </div>

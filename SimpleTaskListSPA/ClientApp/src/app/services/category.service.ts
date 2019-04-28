@@ -36,6 +36,7 @@ export class CategoryService {
 
     //свойство используется для построения списка категорий
     displayedCategories: Array<DisplayedCategory> = new Array<DisplayedCategory>();
+    category: Category = null;
     categories: Array<CategoryResponse> = new Array<CategoryResponse>();
     isFormInEditMode: boolean = false;
 
@@ -69,6 +70,13 @@ export class CategoryService {
         this.selectedCategoryTitle = this._searchWasUsed
             ? this._taskService.queryOptions.searchTerm
             : this.selectedCategory.name;
+    }
+
+    getCategory(id: number): void {
+        this._rest.sendRequest<Category, {}>(HttpMethod.get, `${this._url.category}/${id}`)
+            .subscribe(response => {
+                this.category = this._rest.getResult(response, HttpMethod.get);
+            });
     }
 
     //загрузить категории с сервера
@@ -109,6 +117,19 @@ export class CategoryService {
                 (error) => this.errors = error);
     }
 
+    deleteCategory(): void {
+        this._rest.sendRequest<boolean, Category>(HttpMethod.delete, this._url.category_delete,
+            this.category)
+            .subscribe(response => {
+                let isOk: boolean = this._rest.getBoolResult(response, HttpMethod.delete);
+                if (isOk) {
+                    this.getCategories();
+                    this._taskService.recieveTasks();
+                    this.category = null;
+                }
+            });
+    }
+
     filterByCategory(category: CategoryResponse): void {
         this.selectedCategory = category;
         this._taskService.queryOptions.selectedCategoryId = category.id;
@@ -122,6 +143,13 @@ export class CategoryService {
             this._router.navigateByUrl(url);
         }
         this.currentPageUrl = url;
+    }
+
+    filterByHomeCategory(): void {
+        let minCategoryId = Math.min(...this.categories.map(c => c.id));
+        let homeCategory: CategoryResponse =
+            this.categories.find(c => c.id == minCategoryId);
+        this.filterByCategory(homeCategory);
     }
 
     searchByName(searchTerm: string): void {

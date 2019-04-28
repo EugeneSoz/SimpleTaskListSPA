@@ -19,6 +19,14 @@ namespace SimpleTaskListSPA.Controllers
             _repo = repo;
         }
 
+        [HttpGet("task/{id}")]
+        public async Task<TaskItem> GetTaskAsync(long id)
+        {
+            TaskItem task = await _repo.GetTaskAsync(id);
+
+            return task;
+        }
+
         [HttpPost("tasks")]
         public async Task<TaskItemResponse> ReceiveTasksAsync([FromBody] QueryOptions options)
         {
@@ -52,8 +60,8 @@ namespace SimpleTaskListSPA.Controllers
             return await UpdateAsync(task, _repo.UpdateAsync);
         }
 
-        [HttpPut("delete")]
-        public async Task<ActionResult> DeleteTaskAsync(TaskItem task)
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteTaskAsync([FromBody] TaskItem task)
         {
             return await DeleteAsync(task, _repo.DeleteAsync);
         }

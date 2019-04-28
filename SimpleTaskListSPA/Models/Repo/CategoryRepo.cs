@@ -19,6 +19,8 @@ namespace SimpleTaskListSPA.Models.Repo
                 .Include(c => c.TaskItems)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
+            category.TaskItems.ToList().ForEach(t => t.Category = null);
+
             return category;
         }
 
