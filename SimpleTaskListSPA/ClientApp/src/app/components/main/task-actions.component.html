@@ -1,3 +1,14 @@
-<p>
-  task-actions works!
-</p>
+<div class="dropdown">
+    <a id="dropdownMenuLink" class="text-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-edit fa-lg"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="#" (click)="onSetPlanningDate(0); false">Сегодня</a>
+        <a class="dropdown-item" href="#" (click)="onSetPlanningDate(1); false">Завтра</a>
+        <a class="dropdown-item" href="#" (click)="onSetPlanningDate(-1); false">Удалить
+            дату</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#" (click)="onCopyTask(); false">Копировать</a>
+        <a class="dropdown-item" href="#" (click)="onDelete(); false">Удалить</a>
+    </div>
+</div>

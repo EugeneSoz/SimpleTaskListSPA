@@ -8,6 +8,7 @@ import { TaskItemResponse } from '../models/dataDTO/taskItemResponse';
 import { HttpMethod } from '../helpers/httpMethod';
 import { TaskItem } from '../models/dataDTO/taskItem';
 import { DropdownList } from '../viewmodels/dropdownlist';
+import { TaskDates } from '../models/dataDTO/taskDates';
 
 @Injectable()
 export class TaskService {
@@ -45,6 +46,25 @@ export class TaskService {
         }        
     }
 
+    private _taskCopy: TaskItem = null;
+
+    get taskCopy(): TaskItem {
+        return this._taskCopy;
+    }
+
+    set taskCopy(value: TaskItem) {
+        if (value == null) {
+            this._taskCopy = value;
+        }
+        else {
+            this._taskCopy = new TaskItem();
+            Object.assign(this._taskCopy, value);
+        }
+        if (value != null) {
+            this._taskCopy.id = 0;
+        }
+    }
+
     //ошибки полученные с сервера
     errors: Array<string> = null;
     queryOptions: QueryOptions = null;
@@ -76,18 +96,21 @@ export class TaskService {
             });
     }
 
-    createTask(): void {
-        this._rest.sendRequest<{}, TaskItem>(HttpMethod.post, this._url.task_create, this._selectedTask)
+    createTask(quickTask: TaskItem = null): void {
+        let task = quickTask != null ? quickTask : this._selectedTask;
+        this._rest.sendRequest<{}, TaskItem>(HttpMethod.post, this._url.task_create, task)
             .subscribe(
                 () => {
                     this.tasksChanged.next(true);
+                    this.taskCopy = null;
                     this.recieveTasks();
                 },
                 (error) => this.errors = error);
     }
 
-    updateTask(): void {
-        this._rest.sendRequest<{}, TaskItem>(HttpMethod.put, this._url.task_update, this._selectedTask)
+    updateTask(taskToUpdate: TaskItem = null): void {
+        let task = taskToUpdate != null ? taskToUpdate : this.selectedTask;
+        this._rest.sendRequest<{}, TaskItem>(HttpMethod.put, this._url.task_update, task)
             .subscribe(
                 () => {
                     this.tasksChanged.next(true);
@@ -116,5 +139,19 @@ export class TaskService {
             this.queryOptions.sortPropertyName = sortPropertyName;
         }
         this.recieveTasks();
+    }
+
+    setTaskPlanningDate(taskDates: TaskDates): void {
+        this._rest.sendRequest<{}, TaskDates>(HttpMethod.put, this._url.task_setdate, taskDates)
+            .subscribe(
+                () => {
+                    this.tasksChanged.next(true);
+                    this.recieveTasks();
+                },
+                (error) => this.errors = error);
+    }
+
+    copySelectedTask(): void {
+        this.createTask(this._taskCopy);
     }
 }

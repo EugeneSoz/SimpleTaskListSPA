@@ -10,6 +10,7 @@ import { CategoryResponse } from '../models/dataDTO/categoryResponse';
 import { HttpMethod } from '../helpers/httpMethod';
 import { TaskService } from './taskItem.service';
 import { Category } from '../models/dataDTO/category';
+import { retry } from 'rxjs/operators';
 
 @Injectable()
 export class CategoryService {
@@ -59,6 +60,7 @@ export class CategoryService {
         }
         this._taskService.queryOptions.selectedCategoryId = this._selectedCategory.id;
         this.selectedCategoryTitle = this._selectedCategory.name;
+        this.selectedCategoryChanged.next(true);
     }
 
     get searchWasUsed(): boolean {
@@ -71,6 +73,8 @@ export class CategoryService {
             ? this._taskService.queryOptions.searchTerm
             : this.selectedCategory.name;
     }
+
+    homeCategoryId: number = 0;
 
     getCategory(id: number): void {
         this._rest.sendRequest<Category, {}>(HttpMethod.get, `${this._url.category}/${id}`)
@@ -87,8 +91,8 @@ export class CategoryService {
                 if (cat != null) {
                     this.categories = cat.filter(c => c.id > 0);
                     if (this.selectedCategory.id == 0) {
-                        let minCategoryId = Math.min(...this.categories.map(c => c.id));
-                        this.selectedCategory = cat.find(c => c.id == minCategoryId);
+                        this.homeCategoryId = Math.min(...this.categories.map(c => c.id));
+                        this.selectedCategory = cat.find(c => c.id == this.homeCategoryId);
                         this.currentPageUrl = this.getPageUrl(this._selectedCategory.id);
                     }
                 }
@@ -146,9 +150,9 @@ export class CategoryService {
     }
 
     filterByHomeCategory(): void {
-        let minCategoryId = Math.min(...this.categories.map(c => c.id));
+        this.homeCategoryId = Math.min(...this.categories.map(c => c.id));
         let homeCategory: CategoryResponse =
-            this.categories.find(c => c.id == minCategoryId);
+            this.categories.find(c => c.id == this.homeCategoryId);
         this.filterByCategory(homeCategory);
     }
 

@@ -6,4 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ValidationComponent {
     @Input() messages: Array<string> = null;
+    @Input() isAlertMessage: boolean = false;
 }

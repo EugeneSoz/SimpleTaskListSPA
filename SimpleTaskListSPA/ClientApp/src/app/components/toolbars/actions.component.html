@@ -1,3 +1,7 @@
+<li *ngIf="isThereTaskCopy" class="nav-item">
+    <a class="nav-link active" href="#" (click)="onPasteTaskCopy()">Вставить копию</a>
+</li>
+
 <li *ngIf="isOpenFormTitleVisible" class="nav-item">
     <a class="nav-link active" href="#" (click)="onShowTaskForm()">{{openFormTitle}}</a>
 </li>

@@ -1,5 +1,13 @@
-<ul class="text-danger list-unstyled" *ngIf="messages != null">
+<ul class="text-danger list-unstyled" *ngIf="!isAlertMessage && messages != null">
     <li *ngFor="let error of messages">
         {{error}}
     </li>
 </ul>
+
+<div *ngIf="isAlertMessage && messages != null" class="alert alert-danger" role="alert">
+    <ul class="list-unstyled">
+        <li *ngFor="let error of messages">
+            {{error}}
+        </li>
+    </ul>
+</div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TaskService } from '../../services/taskItem.service';
 import { ListItem } from '../../viewmodels/dropdownlist';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
     selector: '.navbar-nav .mr-auto',
@@ -9,7 +10,12 @@ import { ListItem } from '../../viewmodels/dropdownlist';
 export class ActionsComponent {
 
     constructor(
-        private _taskService: TaskService) { }
+        private _taskService: TaskService,
+        private _categoryService: CategoryService) { }
+
+    get isThereTaskCopy(): boolean {
+        return this._taskService.taskCopy != null ? true : false;
+    }
 
     get openFormTitle(): string {
         return this._taskService.selectedTask.id > 0
@@ -47,5 +53,13 @@ export class ActionsComponent {
 
     onShowTaskForm(): void {
         this._taskService.isFormShown = true;
+    }
+
+    onPasteTaskCopy(): void {
+        this._taskService.taskCopy.categoryId = this._categoryService.selectedCategory.id < 0
+            ? this._categoryService.homeCategoryId
+            : this._categoryService.selectedCategory.id;
+
+        this._taskService.copySelectedTask();
     }
 }

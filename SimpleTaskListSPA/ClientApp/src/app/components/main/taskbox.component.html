@@ -1,8 +1,8 @@
 <div *ngIf="taskItem != null" [class]="taskCssClass">
     <div class="custom-control custom-checkbox col-md taskCheck" (click)="onSelectOrDeselectTask()">
         <input type="checkbox" class="custom-control-input" [checked]="taskItem.isCompleted" 
-        id="{{taskItem.id}}"
-        (change)="onChangeCompletionTask()" />
+        id="{{taskItem.id}}" value="completed"
+        (change)="onChangeCompletionTask($event.target.value)" />
         <label class="custom-control-label font-weight-bold" for="{{taskItem.id}}">
             {{taskItem.name}}
         </label>
@@ -15,10 +15,7 @@
     </div>
 
     <div class="col-md-auto">
-        <!-- @if (AreActionsAvailable)
-        {
-        <TaskActions TaskItem="@TaskItem" />
-        } -->
+        <app-task-actions *ngIf="areActionsAvailable" [taskItem]="taskItem"></app-task-actions>
     </div>
 
 </div>

@@ -19,4 +19,5 @@ export class Urls {
     task_create: string = `${this.baseTaskUrl}/create`;
     task_update: string = `${this.baseTaskUrl}/update`;
     task_delete: string = `${this.baseTaskUrl}/delete`;
+    task_setdate: string = `${this.baseTaskUrl}/setdate`;
 }

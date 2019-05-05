@@ -1,15 +1,28 @@
-<div class="add-task">
-    <div class="add-task-meta">
-        <a class="add-task-meta-star" [style.color]="starColour">
-            <i class="fas fa-star"></i>
+<form novalidate #form="ngForm">
+    <app-validation [messages]="getErrors(name, 'name')" [isAlertMessage]="true"></app-validation>
+    <div class="add-task">
+        <div class="add-task-meta">
+            <a class="add-task-meta-star" [style.color]="starColour"
+                (click)="onSwitchTaskImportance()">
+                <i class="fas fa-star"></i>
+            </a>
+            <a class="add-task-meta-date" [style.color]="calendarColour" (click)="dp.toggle()"
+                [attr.aria-expanded]="dp.isOpen">
+                <i class="fas fa-calendar-alt"></i>
+            </a>
+        </div>
+        <a class="plus-wrapper" style="color: #fff;">
+            <i class="fas fa-plus"></i>
         </a>
-        <a class="add-task-meta-date" [style.color]="calendarColour">
-            <i class="fas fa-calendar-alt"></i>
-        </a>
+        <input class="add-task-input chromeless" type="text" (keyup.enter)="onSubmit(form)"
+            name="name"
+            [(ngModel)]="taskItem.name" 
+            #name="ngModel" 
+            required 
+            appRange="3,60" />
+        <input id="add-task-date" class="chromeless" type="text" 
+            #dp="bsDatepicker" bsDatepicker
+            name="planningDate"
+            [(ngModel)]="taskItem.planningDate" />
     </div>
-    <a class="plus-wrapper" style="color: #fff;">
-        <i class="fas fa-plus"></i>
-    </a>
-    <input class="add-task-input chromeless" type="text" />
-    <input id="add-task-date" class="chromeless" type="text" disabled />
-</div>
+</form>
