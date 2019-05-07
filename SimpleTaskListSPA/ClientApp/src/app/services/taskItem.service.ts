@@ -1,11 +1,10 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Urls } from '../helpers/urls';
 import { RestDatasource } from '../helpers/restDataSource';
 import { QueryOptions } from '../models/dataDTO/queryOptions';
 import { TaskItemResponse } from '../models/dataDTO/taskItemResponse';
-import { HttpMethod } from '../helpers/httpMethod';
 import { TaskItem } from '../models/dataDTO/taskItem';
 import { DropdownList } from '../viewmodels/dropdownlist';
 import { TaskDates } from '../models/dataDTO/taskDates';
@@ -41,9 +40,9 @@ export class TaskService {
             if (this._selectedTask.planningDate != null) {
                 this._selectedTask.planningDate = new Date(value.planningDate.toString());
             }
-            
+
             this.isFormInEditMode = true;
-        }        
+        }
     }
 
     private _taskCopy: TaskItem = null;
@@ -77,53 +76,57 @@ export class TaskService {
     isFormInEditMode: boolean = false;
 
     getTask(id: number): void {
-        this._rest.sendRequest<TaskItem, {}>(HttpMethod.get, `${this._url.task}/${id}`)
-            .subscribe(response => {
-                this.task = this._rest.getResult(response, HttpMethod.get);
-            });
+        this._rest.getOne<TaskItem>(`${this._url.task}/${id}`)
+            .subscribe(result => this.task = result);
     }
 
     recieveTasks(): void {
-        this._rest.sendRequest<TaskItemResponse, QueryOptions>(HttpMethod.post,
-            this._url.tasks, this.queryOptions)
-            .subscribe(response => {
-                this.taskItems = this._rest.getResult(response, HttpMethod.post);
+        this._rest.recieveAll<TaskItemResponse, QueryOptions>(this._url.tasks, this.queryOptions)
+            .subscribe(result => {
+                this.taskItems = result;
 
                 if (this.taskItems != null && this.taskItems.tasks != null) {
                     this.activeTasks = this.taskItems.tasks["active"];
                     this.completedTasks = this.taskItems.tasks["completed"];
+                }
+                else {
+                    this.taskItems = null;
+                    this.activeTasks = null;
+                    this.completedTasks = null;
                 }
             });
     }
 
     createTask(quickTask: TaskItem = null): void {
         let task = quickTask != null ? quickTask : this._selectedTask;
-        this._rest.sendRequest<{}, TaskItem>(HttpMethod.post, this._url.task_create, task)
-            .subscribe(
-                () => {
+        this._rest.create<TaskItem>(this._url.task_create, task)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.tasksChanged.next(true);
                     this.taskCopy = null;
                     this.recieveTasks();
-                },
-                (error) => this.errors = error);
+                }
+
+            },
+                (errors) => this.errors = <string[]>errors);
     }
 
     updateTask(taskToUpdate: TaskItem = null): void {
         let task = taskToUpdate != null ? taskToUpdate : this.selectedTask;
-        this._rest.sendRequest<{}, TaskItem>(HttpMethod.put, this._url.task_update, task)
-            .subscribe(
-                () => {
+        this._rest.update<TaskItem>(this._url.task_update, task)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.tasksChanged.next(true);
                     this.recieveTasks();
+                }
             },
-            (error) => this.errors = error);
+            (errors) => this.errors = <string[]>errors);
     }
 
     deleteTask(): void {
-        this._rest.sendRequest<boolean, TaskItem>(HttpMethod.delete, this._url.task_delete, this.task)
-            .subscribe(response => {
-                let isOk: boolean = this._rest.getBoolResult(response, HttpMethod.delete);
-                if (isOk) {
+        this._rest.delete<TaskItem>(this._url.task_delete, this.task)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.tasksChanged.next(true);
                     this.recieveTasks();
                     this.task = null;
@@ -142,13 +145,14 @@ export class TaskService {
     }
 
     setTaskPlanningDate(taskDates: TaskDates): void {
-        this._rest.sendRequest<{}, TaskDates>(HttpMethod.put, this._url.task_setdate, taskDates)
-            .subscribe(
-                () => {
+        this._rest.update<TaskDates>(this._url.task_setdate, taskDates)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.tasksChanged.next(true);
                     this.recieveTasks();
-                },
-                (error) => this.errors = error);
+                }
+            },
+            (errors) => this.errors = <string[]>errors);
     }
 
     copySelectedTask(): void {

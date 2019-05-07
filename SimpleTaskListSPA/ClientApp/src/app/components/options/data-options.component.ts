@@ -25,6 +25,10 @@ export class DataOptionsComponent implements OnInit {
         return true;
     }
 
+    get infoMessage(): string {
+        return this._dataOptionsService.infoMessage;
+    }
+
     get contextName(): string {
         return this._dataOptionsService.contextName;
     }
@@ -51,5 +55,17 @@ export class DataOptionsComponent implements OnInit {
 
     onSeedDatabaseFromFile(): void {
         this._dataOptionsService.seedDatabase(true);
+    }
+
+    onApplyMigrations(): void {
+        this._dataOptionsService.applyMigrations();
+    }
+
+    onClearDatabase(): void {
+        this._dataOptionsService.clearDatabase();
+    }
+
+    onSaveData(): void {
+        this._dataOptionsService.saveData();
     }
 }

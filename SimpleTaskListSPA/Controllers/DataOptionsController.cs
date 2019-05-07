@@ -13,11 +13,12 @@ using SimpleTaskListSPA.Models.Repo;
 namespace SimpleTaskListSPA.Controllers
 {
     [Route("api/options")]
+    [Produces("application/json")]
     public class DataOptionsController : ControllerBase
     {
         private readonly ITaskItemRepo _taskRepo;
         private readonly ICategoryRepo _categoryRepo;
-        private MigrationsManager _manager;
+        private readonly MigrationsManager _manager;
 
         public DataOptionsController(ITaskItemRepo taskRepo, ICategoryRepo categoryRepo, 
             MigrationsManager manager)

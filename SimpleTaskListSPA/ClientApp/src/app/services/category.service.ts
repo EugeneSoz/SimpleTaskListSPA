@@ -7,10 +7,9 @@ import { RestDatasource } from '../helpers/restDataSource';
 import { DisplayedCategory } from '../models/displayedCategory';
 import { CategoryFilterType } from '../enums/categoryFilterType';
 import { CategoryResponse } from '../models/dataDTO/categoryResponse';
-import { HttpMethod } from '../helpers/httpMethod';
 import { TaskService } from './taskItem.service';
 import { Category } from '../models/dataDTO/category';
-import { retry } from 'rxjs/operators';
+import { TaskItem } from '../models/dataDTO/taskItem';
 
 @Injectable()
 export class CategoryService {
@@ -77,17 +76,15 @@ export class CategoryService {
     homeCategoryId: number = 0;
 
     getCategory(id: number): void {
-        this._rest.sendRequest<Category, {}>(HttpMethod.get, `${this._url.category}/${id}`)
-            .subscribe(response => {
-                this.category = this._rest.getResult(response, HttpMethod.get);
-            });
+        this._rest.getOne<Category>(`${this._url.category}/${id}`)
+            .subscribe(result => this.category = result);
     }
 
     //загрузить категории с сервера
     getCategories() {
-        this._rest.sendRequest<Array<CategoryResponse>, {}>(HttpMethod.get, this._url.categories)
-            .subscribe(response => {
-                let cat: Array<CategoryResponse> = this._rest.getResult(response, HttpMethod.get);
+        this._rest.getAll<Array<CategoryResponse>>(this._url.categories)
+            .subscribe(result => {
+                let cat: Array<CategoryResponse> = result;
                 if (cat != null) {
                     this.categories = cat.filter(c => c.id > 0);
                     if (this.selectedCategory.id == 0) {
@@ -95,39 +92,43 @@ export class CategoryService {
                         this.selectedCategory = cat.find(c => c.id == this.homeCategoryId);
                         this.currentPageUrl = this.getPageUrl(this._selectedCategory.id);
                     }
-                }
 
-                this.displayedCategories = this.createDisplayedCategoriesList(cat);
+                    this.displayedCategories = this.createDisplayedCategoriesList(cat);
+                }
+                else {
+                    this.displayedCategories = new Array<DisplayedCategory>()
+                }
             });
     }
 
     createCategory(category: Category): void {
-        this._rest.sendRequest<{}, Category>(HttpMethod.post, this._url.category_create, category)
-            .subscribe(
-                () => {
+        this._rest.create<Category>(this._url.category_create, category)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.getCategories();
                     this._taskService.recieveTasks();
-                },
-                (error) => this.errors = error);
+                }
+            },
+                (errors) => this.errors = <string[]>errors);
     }
 
     updateCategory(category: Category): void {
-        this._rest.sendRequest<{}, Category>(HttpMethod.put, this._url.category_update, category)
-            .subscribe(
-                () => {
+        this._rest.update<Category>(this._url.category_update, category)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.getCategories();
                     this._taskService.recieveTasks();
-                },
-                (error) => this.errors = error);
+                }
+            },
+            (errors) => this.errors = <string[]>errors);
     }
 
     deleteCategory(): void {
-        this._rest.sendRequest<boolean, Category>(HttpMethod.delete, this._url.category_delete,
-            this.category)
-            .subscribe(response => {
-                let isOk: boolean = this._rest.getBoolResult(response, HttpMethod.delete);
-                if (isOk) {
+        this._rest.delete<Category>(this._url.category_delete, this.category)
+            .subscribe((result: boolean) => {
+                if (result) {
                     this.getCategories();
+                    this._taskService.selectedTask = new TaskItem();
                     this._taskService.recieveTasks();
                     this.category = null;
                 }
@@ -183,8 +184,7 @@ export class CategoryService {
         }
     }
 
-    private createDisplayedCategoriesList(categories: Array<CategoryResponse>): Array<DisplayedCategory>
-    {
+    private createDisplayedCategoriesList(categories: Array<CategoryResponse>): Array<DisplayedCategory> {
         let displayedCategories = new Array<DisplayedCategory>();
         categories.forEach(c => displayedCategories.push(new DisplayedCategory(c)));
 

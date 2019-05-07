@@ -4,7 +4,11 @@ import { Injectable } from "@angular/core";
 export class Urls {
     private baseoptionsUrl: string = `/api/options`;
     dataOptions: string = `${this.baseoptionsUrl}/services`;
-    seed: string = `${this.baseoptionsUrl}/seed`;
+    options_seed: string = `${this.baseoptionsUrl}/seed`;
+    options_apply: string = `${this.baseoptionsUrl}/apply`;
+    options_save: string = `${this.baseoptionsUrl}/save`;
+    options_clear: string = `${this.baseoptionsUrl}/clear`;
+
 
     private baseCategoryUrl: string = `/api/category`;
     categories: string = `${this.baseCategoryUrl}/categories`;

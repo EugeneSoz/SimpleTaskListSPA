@@ -30,8 +30,16 @@ namespace SimpleTaskListSPA.Controllers
         [HttpGet("categories")]
         public async Task<List<CategoryResponse>> GetCategoriesAsync()
         {
-            List<CategoryResponse> categories = await _repo.GetCategoriesAsync();
-
+            List<CategoryResponse> categories;
+            try
+            {
+                categories = await _repo.GetCategoriesAsync();
+            }
+            catch (Exception)
+            {
+                categories = null;
+            }
+            
             return categories;
         }
 

@@ -3,5 +3,6 @@ export enum HttpStatusCode {
     Created = 201,
     NoContent = 204,
     NotFound = 404,
-    OK = 200
+    OK = 200,
+    InternalServerError = 500
 }

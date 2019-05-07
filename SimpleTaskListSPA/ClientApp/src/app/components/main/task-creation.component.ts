@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { CategoryService } from '../../services/category.service';
@@ -13,7 +13,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
     selector: 'app-task-creation',
     templateUrl: './task-creation.component.html',
 })
-export class TaskCreationComponent extends BaseFormComponent implements OnInit {
+export class TaskCreationComponent extends BaseFormComponent implements OnInit, OnDestroy {
 
     constructor(
         private _taskService: TaskService,
@@ -68,5 +68,9 @@ export class TaskCreationComponent extends BaseFormComponent implements OnInit {
         this.taskItem.categoryId = this._categoryService.selectedCategory.id < 0
             ? this._categoryService.homeCategoryId
             : this._categoryService.selectedCategory.id;
+    }
+
+    ngOnDestroy(): void {
+        //this._categoryService.selectedCategoryChanged.unsubscribe();
     }
 }

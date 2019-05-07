@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 
 import { HttpMethod } from "./httpMethod";
 import { HttpStatusCode } from '../enums/httpStatusCode';
@@ -14,7 +14,61 @@ export class RestDatasource {
 
     private _errors: Array<string> = null;
 
-    getResult<TBody>(response: HttpResponse<TBody>, method: HttpMethod): TBody {
+    getOne<TResponse>(url: string): Observable<TResponse> {
+        let entity$ = this.sendRequest<TResponse, {}>(HttpMethod.get, url)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.get)));
+
+        return entity$;
+    }
+
+    getAll<TResponse>(url: string): Observable<TResponse> {
+        let entities$ = this.sendRequest<TResponse, {}>(HttpMethod.get, url)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.get)));
+
+        return entities$;
+    }
+
+    recieveAll<TResponse, TBody>(url: string, parameter: TBody): Observable<TResponse> {
+        let entities$ = this.sendRequest<TResponse, TBody>(HttpMethod.post, url, parameter)
+            .pipe(
+                map((response: HttpResponse<TResponse>) =>
+                    this.getResult<TResponse>(response, HttpMethod.post)));
+
+        return entities$;
+    }
+
+    create<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.post, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.post)));
+
+        return entities$;
+    }
+
+    update<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.put, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.put)));
+
+        return entities$;
+    }
+
+    delete<TBody>(url: string, parameter: TBody): Observable<boolean> {
+        let entities$ = this.sendRequest<{}, TBody>(HttpMethod.delete, url, parameter)
+            .pipe(
+                map((response: HttpResponse<{}>) =>
+                    this.getBoolResult(response, HttpMethod.delete)));
+
+        return entities$;
+    }
+
+    private getResult<TBody>(response: HttpResponse<TBody>, method: HttpMethod): TBody {
         let result: TBody = null;
         switch (method) {
             case HttpMethod.get:
@@ -23,24 +77,24 @@ export class RestDatasource {
                     ? response.body
                     : null;
                 break;
-            case HttpMethod.post:
-                result = response.status == HttpStatusCode.Created
-                    ? null
-                    : response.body;
-                break;
-            case HttpMethod.put:
-                result = response.status == HttpStatusCode.OK
-                    ? null
-                    : response.body;
-                break;
         }
 
         return result;
     }
 
-    getBoolResult(response: HttpResponse<boolean>, method: HttpMethod): boolean {
+    private getBoolResult(response: HttpResponse<{}>, method: HttpMethod): boolean {
         let boolResult: boolean = null;
         switch (method) {
+            case HttpMethod.post:
+                boolResult = response.status == HttpStatusCode.Created
+                    ? true
+                    : false;
+                break;
+            case HttpMethod.put:
+                boolResult = response.status == HttpStatusCode.OK
+                    ? true
+                    : false;
+                break;
             case HttpMethod.delete:
                 boolResult = response.status == HttpStatusCode.NoContent
                     ? true
@@ -52,7 +106,7 @@ export class RestDatasource {
     }
 
     //вспомогательный метод для сериализации объекта и отправки его на сервер
-    sendRequest<TResponse, TBody>(verb: string,
+    private sendRequest<TResponse, TBody>(verb: string,
         url: string, body?: TBody): Observable<HttpResponse<TResponse>> {
         return this._http.request<TResponse>(verb, url, { body, observe: "response" })
             .pipe(catchError(this.handleError));

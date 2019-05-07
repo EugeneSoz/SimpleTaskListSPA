@@ -40,8 +40,8 @@ import { CategoryService } from './services/category.service';
 import { SpecialListboxComponent } from './components/main/listboxes/special-listbox.component';
 import { RangeValidatorDirective } from './directives/range.directive';
 import { MinValueValidatorDirective } from './directives/min-value.directive';
-import { Errors_Received, ErrorsEventArgs } from './models/events/errorsEventArgs';
 import { ServerValidationComponent } from './components/shared/server-validation.component';
+import { OptionsToolbarComponent } from './components/options/options-toolbar.component';
 
 registerLocaleData(localeRu, "ru");
 
@@ -67,6 +67,7 @@ registerLocaleData(localeRu, "ru");
         DataOptionsComponent,
         TaskFormComponent,
         ServerValidationComponent,
+        OptionsToolbarComponent,
         RangeValidatorDirective,
         MinValueValidatorDirective,
     ],
@@ -81,7 +82,6 @@ registerLocaleData(localeRu, "ru");
     providers: [
         TaskService,
         CategoryService,
-        { provide: Errors_Received, useValue: new Subject<ErrorsEventArgs>() },
         { provide: LOCALE_ID, useValue: 'ru' }
     ],
     entryComponents: [CategoryFormComponent, DeleteMessageComponent],
