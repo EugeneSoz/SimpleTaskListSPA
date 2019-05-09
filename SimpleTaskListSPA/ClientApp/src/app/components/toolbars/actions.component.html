@@ -1,9 +1,9 @@
 <li *ngIf="isThereTaskCopy" class="nav-item">
-    <a class="nav-link active" href="#" (click)="onPasteTaskCopy()">Вставить копию</a>
+    <a class="nav-link active" href="#" (click)="onPasteTaskCopy(); false">Вставить копию</a>
 </li>
 
 <li *ngIf="isOpenFormTitleVisible" class="nav-item">
-    <a class="nav-link active" href="#" (click)="onShowTaskForm()">{{openFormTitle}}</a>
+    <a class="nav-link active" href="#" (click)="onShowTaskForm(); false">{{openFormTitle}}</a>
 </li>
 
 <li class="nav-item">

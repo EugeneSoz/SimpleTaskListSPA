@@ -50,7 +50,6 @@ export class TaskCreationComponent extends BaseFormComponent implements OnInit, 
                 if (response) {
                     this.createNewTask();
                 }
-                console.log("subscribed at: " + new Date());
             }));
         
         this._localeService.use("ru");
