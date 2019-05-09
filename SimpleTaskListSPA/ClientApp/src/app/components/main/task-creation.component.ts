@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { CategoryService } from '../../services/category.service';
 import { TaskItem } from '../../models/dataDTO/taskItem';
@@ -21,13 +22,9 @@ export class TaskCreationComponent extends BaseFormComponent implements OnInit, 
         private _localeService: BsLocaleService) {
 
         super(new ModelErrors(), EntityType.TaskItem);
-        _categoryService.selectedCategoryChanged
-            .subscribe(response => {
-                if (response) {
-                    this.createNewTask();
-                }
-            });
     }
+
+    private _subscription: Subscription = new Subscription();
 
     taskItem: TaskItem = null;
     get calendarColour(): string {
@@ -47,6 +44,15 @@ export class TaskCreationComponent extends BaseFormComponent implements OnInit, 
     }
 
     ngOnInit(): void {
+        this._subscription.add(
+            this._categoryService.selectedCategoryChanged
+            .subscribe(response => {
+                if (response) {
+                    this.createNewTask();
+                }
+                console.log("subscribed at: " + new Date());
+            }));
+        
         this._localeService.use("ru");
         this.createNewTask();
     }
@@ -71,6 +77,6 @@ export class TaskCreationComponent extends BaseFormComponent implements OnInit, 
     }
 
     ngOnDestroy(): void {
-        //this._categoryService.selectedCategoryChanged.unsubscribe();
+        this._subscription.unsubscribe();
     }
 }
