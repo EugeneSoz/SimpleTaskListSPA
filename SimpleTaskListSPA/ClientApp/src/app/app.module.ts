@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 
@@ -35,7 +36,6 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ruLocale } from 'ngx-bootstrap/locale';
 defineLocale('ru', ruLocale); 
 
-import { Subject } from 'rxjs';
 import { CategoryService } from './services/category.service';
 import { SpecialListboxComponent } from './components/main/listboxes/special-listbox.component';
 import { RangeValidatorDirective } from './directives/range.directive';
@@ -76,6 +76,7 @@ registerLocaleData(localeRu, "ru");
         FormsModule,
         AppRoutingModule,
         HttpClientModule,
+        BrowserAnimationsModule,
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot()
     ],

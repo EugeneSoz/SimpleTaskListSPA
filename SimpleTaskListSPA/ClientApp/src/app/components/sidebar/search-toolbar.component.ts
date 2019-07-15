@@ -10,7 +10,7 @@ export class SearchToolbarComponent {
     constructor(
         private _categoryService: CategoryService) { }
 
-    @ViewChild('searchInput') searchElement: ElementRef<HTMLInputElement>;
+    @ViewChild('searchInput', { static: true }) searchElement: ElementRef<HTMLInputElement>;
 
     searchTerm: string = "";
 

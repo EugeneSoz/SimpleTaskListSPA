@@ -28,16 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\directives\min-value.directive.ts" />
-    <None Remove="ClientApp\src\app\viewmodels\baseForm.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\directives\min-value.directive.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\viewmodels\baseForm.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Files\SavedData\" />
   </ItemGroup>
 

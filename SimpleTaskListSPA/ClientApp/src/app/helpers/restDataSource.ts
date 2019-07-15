@@ -32,7 +32,7 @@ export class RestDatasource {
         return entities$;
     }
 
-    recieveAll<TResponse, TBody>(url: string, parameter: TBody): Observable<TResponse> {
+    receiveAll<TResponse, TBody>(url: string, parameter: TBody): Observable<TResponse> {
         let entities$ = this.sendRequest<TResponse, TBody>(HttpMethod.post, url, parameter)
             .pipe(
                 map((response: HttpResponse<TResponse>) =>

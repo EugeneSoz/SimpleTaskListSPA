@@ -81,7 +81,7 @@ export class TaskService {
     }
 
     recieveTasks(): void {
-        this._rest.recieveAll<TaskItemResponse, QueryOptions>(this._url.tasks, this.queryOptions)
+        this._rest.receiveAll<TaskItemResponse, QueryOptions>(this._url.tasks, this.queryOptions)
             .subscribe(result => {
                 this.taskItems = result;
 

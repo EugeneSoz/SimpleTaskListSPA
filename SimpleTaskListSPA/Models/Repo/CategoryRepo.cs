@@ -32,7 +32,7 @@ namespace SimpleTaskListSPA.Models.Repo
 
             List<CategoryResponse> generalCategories = await GetGeneralCategories();
 
-            //добавить в коллекцию вначале основную категорию, а потом остольные по алфавиту
+            //добавить в коллекцию вначале основную категорию, а потом остальные по алфавиту
             long homeCategoryId = generalCategories.Min(cat => cat.Id);
             CategoryResponse homeCategory = generalCategories.Find(c => c.Id == homeCategoryId);
             categories.Add(homeCategory);
